@@ -1,4 +1,4 @@
-Thisnis the Fitness App, track and manage your workouts with ease
+This is the Fitness App, track and manage your workouts with ease
 
 ## Getting Started
 
