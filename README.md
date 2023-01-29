@@ -8,6 +8,13 @@ First, run the development server:
 npm run dev
 ```
 
+## Testing
+
+A few rules when it comes to testing.
+- 100% coverage isn't mission critical, but we should aim for as much as possible.
+- Snapshot testing is fine, but we should avoid it where possible.
+- If your test does not increase confidence in the code, it's not a good test.
+
 ## Contributing
 
 We have a few rules for contributing to this repo:
