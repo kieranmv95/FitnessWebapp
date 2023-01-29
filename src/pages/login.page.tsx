@@ -1,10 +1,10 @@
 import Head from 'next/head'
 
-export default function Home() {
+export default function Login() {
   return (
     <>
       <Head>
-        <title>Fitness App | Home</title>
+        <title>Fitness App | Login</title>
         <meta name="description" content="Fitness App" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
