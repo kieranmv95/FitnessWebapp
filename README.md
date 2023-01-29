@@ -1,4 +1,4 @@
-Thisnis the Fitness App, track and manage your workouts with ease
+This is the Fitness App, track and manage your workouts with ease
 
 ## Getting Started
 
@@ -24,3 +24,7 @@ We have a few rules for contributing to this repo:
 - Raise a PR against master.
 - Once approved, merge to master.
 - Cleanup branches accordingly.
+
+## Pages
+
+When creating a new page in the pages directory it must follow the *.page.tsx naming convention. This is due to our collocation of tests and them being mistaken by next builder as pages. See next.config.ts for pattern
