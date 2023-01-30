@@ -93,7 +93,7 @@ export default function Login() {
           value={loginForm.values.password}
         />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">Login now</button>
       </form>
       <p
         onClick={() => {
@@ -154,7 +154,7 @@ export default function Login() {
           value={signUpForm.values.passwordConfirmation}
         />
         <br />
-        <button type="submit">Sign up</button>
+        <button type="submit">Sign up now!</button>
       </form>
       <p
         onClick={() => {
