@@ -1,17 +1,8 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
-import { useRouter } from 'next/router'
 
 export default function App() {
   const { user, logout } = useFirebaseAuth()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!user.loading && !user.loggedIn) {
-      router.push('/login')
-    }
-  }, [user, router])
 
   if (user.loading) return <div>Loading...</div>
 
