@@ -8,9 +8,8 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    environment: production
     strategy:
       matrix:
         node-version: [16.x]
