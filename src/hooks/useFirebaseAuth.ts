@@ -1,4 +1,4 @@
-import app from './useFirebase'
+import app from '../firebase'
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
-type IUser = {
+export type IUser = {
   data: User | null
   loggedIn: boolean
   loading: boolean
