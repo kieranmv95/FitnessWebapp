@@ -14,6 +14,14 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+    env:
+      NEXT_PUBLIC_FIRERBASE_APIKEY: FAKESECRETHERE
+      NEXT_PUBLIC_FIRERBASE_AUTHDOMAIN: fitnessapp-test.firebaseapp.com
+      NEXT_PUBLIC_FIRERBASE_PROJECTID: fitnessapp-test
+      NEXT_PUBLIC_FIRERBASE_STORAGEBUCKET: fitnessapp-test.appspot.com
+      NEXT_PUBLIC_FIRERBASE_MESSAGINGSENDERID: 1020597467662
+      NEXT_PUBLIC_FIRERBASE_APPID: 1:123456789:web:123456789
+      NEXT_PUBLIC_FIRERBASE_MEASUREMENTID: G-TESTGID
 
     steps:
       - uses: actions/checkout@v3
