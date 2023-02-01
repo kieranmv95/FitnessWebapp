@@ -23,6 +23,8 @@ export default function Login() {
   const { login, user, signUp } = useFirebaseAuth()
   const router = useRouter()
   const [loginView, setLoginView] = useState(true)
+  const [loginFailed, setLoginFailed] = useState(false)
+  const [signUpFailed, setSignUpFailed] = useState(false)
 
   useEffect(() => {
     if (!user.loading && user.loggedIn) {
@@ -39,8 +41,14 @@ export default function Login() {
       password: '',
     },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      login(values.email, values.password)
+    onSubmit: async (values) => {
+      setLoginFailed(false)
+      const loginRes = await login(values.email, values.password)
+
+      if (!loginRes) {
+        loginForm.resetForm()
+        setLoginFailed(true)
+      }
     },
   })
 
@@ -55,8 +63,14 @@ export default function Login() {
       passwordConfirmation: '',
     },
     validationSchema: SignUpSchema,
-    onSubmit: (values) => {
-      signUp(values.email, values.password)
+    onSubmit: async (values) => {
+      setSignUpFailed(false)
+      const signUpResult = await signUp(values.email, values.password)
+
+      if (!signUpResult) {
+        signUpForm.resetForm()
+        setSignUpFailed(true)
+      }
     },
   })
 
@@ -70,6 +84,7 @@ export default function Login() {
           type="text"
           id="email"
           name="email"
+          placeholder="Enter email"
           autoComplete="off"
           onChange={loginForm.handleChange}
           value={loginForm.values.email}
@@ -87,6 +102,7 @@ export default function Login() {
         <input
           type="password"
           autoComplete="off"
+          placeholder="Enter password"
           id="password"
           name="password"
           onChange={loginForm.handleChange}
@@ -95,6 +111,11 @@ export default function Login() {
         <br />
         <button type="submit">Login now</button>
       </form>
+      {loginFailed && (
+        <div>
+          <p>Login failed</p>
+        </div>
+      )}
       <p
         onClick={() => {
           setLoginView(false)
@@ -115,29 +136,31 @@ export default function Login() {
         <input
           type="text"
           id="email"
+          placeholder="Enter email"
           name="email"
           autoComplete="off"
           onChange={signUpForm.handleChange}
           value={signUpForm.values.email}
         />
         {signUpForm.errors.email && signUpForm.touched.email && (
-          <div>{loginForm.errors.email}</div>
+          <div>{signUpForm.errors.email}</div>
         )}
         <br />
         <br />
         <label htmlFor="password">Password</label>
-        {signUpForm.errors.password && signUpForm.touched.password && (
-          <div>{signUpForm.errors.password}</div>
-        )}
         <br />
         <input
           type="password"
           autoComplete="off"
           id="password"
+          placeholder="Enter password"
           name="password"
           onChange={signUpForm.handleChange}
           value={signUpForm.values.password}
         />
+        {signUpForm.errors.password && signUpForm.touched.password && (
+          <div>{signUpForm.errors.password}</div>
+        )}
         <br />
         <label htmlFor="password">Confirm Password</label>
         {signUpForm.errors.passwordConfirmation &&
@@ -148,6 +171,7 @@ export default function Login() {
         <input
           type="password"
           autoComplete="off"
+          placeholder="Confirm password"
           id="passwordConfirmation"
           name="passwordConfirmation"
           onChange={signUpForm.handleChange}
@@ -156,6 +180,11 @@ export default function Login() {
         <br />
         <button type="submit">Sign up now!</button>
       </form>
+      {signUpFailed && (
+        <div>
+          <p>Signup failed</p>
+        </div>
+      )}
       <p
         onClick={() => {
           setLoginView(true)
