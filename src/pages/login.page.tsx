@@ -28,18 +28,14 @@ export default function LoginPage() {
         {loginView ? (
           <>
             <Login />
-            <p>
-              Not got an account?{' '}
-              <div onClick={() => setLoginView(false)}>Sign up for free</div>
-            </p>
+            <p>Not got an account? </p>
+            <div onClick={() => setLoginView(false)}>Sign up for free</div>
           </>
         ) : (
           <>
             <Signup />
-            <p>
-              Already have an account?{' '}
-              <div onClick={() => setLoginView(true)}>Login now</div>
-            </p>
+            <p>Already have an account? </p>
+            <div onClick={() => setLoginView(true)}>Login now</div>
           </>
         )}
       </>
