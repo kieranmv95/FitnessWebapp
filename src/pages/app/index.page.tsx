@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 
 export default function App() {
-  const { user, logout } = useFirebaseAuth()
+  const { user, logout } = useFirebaseAuth(true)
 
   if (user.loading) return <div>Loading...</div>
 

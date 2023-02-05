@@ -1,2 +1,8 @@
-@import './reset';
-@import './typography';
+@import './partials/variables';
+@import './partials/reset';
+@import './partials/typography';
+
+body {
+  color: $color-electromagnetic;
+  background: $color-lynx-white;
+}

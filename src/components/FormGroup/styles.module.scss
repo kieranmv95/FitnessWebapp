@@ -1,0 +1,22 @@
+@import "../../styles/partials/variables";
+@import '../../styles/mixins/typography';
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: .3rem;
+}
+
+.labelError,
+.copyError {
+  @include copy-err;
+}
+
+.copyError {
+  font-size: .9rem;
+  margin-top: .25rem;
+}

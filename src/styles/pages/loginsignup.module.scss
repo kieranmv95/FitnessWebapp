@@ -1,0 +1,13 @@
+@import "../mixins/grids";
+@import "../mixins/typography";
+
+.loginForm {
+  @include container-small;
+  @include container-centered;
+}
+
+.switchForm span {
+  @include copy-light;
+  text-decoration: underline;
+  cursor: pointer;
+}

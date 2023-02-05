@@ -1,0 +1,9 @@
+@import "../partials/variables";
+
+@mixin copy-light {
+  color: $color-chain-gang-grey;
+}
+
+@mixin copy-err {
+  color: $color-nasturcian-flower;
+}
