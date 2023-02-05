@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
+import FormGroup from '@/components/FormGroup'
+import Button from '@/components/Button'
+import styles from './styles.module.scss'
+import Alert from '@/components/Alert'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -33,48 +37,42 @@ const LoginForm = () => {
   })
 
   return (
-    <>
-      <h2>Login</h2>
+    <div className={styles.form}>
+      <h2 className={styles.title}>Login</h2>
+      <p className={styles.subtitle}>Welcome back, please enter your details</p>
       <form onSubmit={loginForm.handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <br />
-        <input
+        <FormGroup
+          label="Email"
+          error={!!(loginForm.errors.email && loginForm.touched.email)}
+          errorMsg={loginForm.errors.email}
           type="text"
           id="email"
           name="email"
           placeholder="Enter email"
-          autoComplete="off"
           onChange={loginForm.handleChange}
           value={loginForm.values.email}
+          autoComplete="email"
         />
-        {loginForm.errors.email && loginForm.touched.email && (
-          <div>{loginForm.errors.email}</div>
-        )}
-        <br />
-        <br />
-        <label htmlFor="password">Password</label>
-        {loginForm.errors.password && loginForm.touched.password && (
-          <div>{loginForm.errors.password}</div>
-        )}
-        <br />
-        <input
+
+        <FormGroup
+          label="Password"
+          error={!!(loginForm.errors.password && loginForm.touched.password)}
+          errorMsg={loginForm.errors.password}
           type="password"
-          autoComplete="off"
-          placeholder="Enter password"
           id="password"
           name="password"
+          placeholder="Enter password"
           onChange={loginForm.handleChange}
           value={loginForm.values.password}
+          autoComplete="current-password"
         />
-        <br />
-        <button type="submit">Login now</button>
+
+        <Button className={styles.button} type="submit">
+          Login now
+        </Button>
       </form>
-      {loginFailed && (
-        <div>
-          <p>Login failed</p>
-        </div>
-      )}
-    </>
+      {loginFailed && <Alert message="Login failed" />}
+    </div>
   )
 }
 

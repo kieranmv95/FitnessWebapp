@@ -15,7 +15,7 @@ export type IUser = {
   loading: boolean
 }
 
-export const useFirebaseAuth = () => {
+export const useFirebaseAuth = (protectedRoute = false) => {
   const [user, setUser] = useState<IUser>({
     data: null,
     loggedIn: false,
@@ -38,7 +38,7 @@ export const useFirebaseAuth = () => {
           loggedIn: false,
           loading: false,
         })
-        router.push('/login')
+        if (protectedRoute) router.push('/login')
       }
     })
   }, [auth, router])

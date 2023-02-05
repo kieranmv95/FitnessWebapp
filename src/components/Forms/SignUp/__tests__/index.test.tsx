@@ -29,6 +29,9 @@ describe('SignUpForm', () => {
     const passwordInput = getByPlaceholderText('Enter password')
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
+    const passwordConfirmInput = getByPlaceholderText('Confirm password')
+    fireEvent.change(passwordConfirmInput, { target: { value: 'password123' } })
+
     const signUpButton = getByText('Sign up now!')
     fireEvent.click(signUpButton)
 
@@ -44,7 +47,7 @@ describe('SignUpForm', () => {
     fireEvent.click(signUpButton)
 
     await waitFor(() => {
-      expect(getAllByText('Required').length).toBe(2)
+      expect(getAllByText('Required').length).toBe(3)
     })
   })
 
@@ -62,6 +65,9 @@ describe('SignUpForm', () => {
 
     const passwordInput = getByPlaceholderText('Enter password')
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
+
+    const passwordConfirmInput = getByPlaceholderText('Confirm password')
+    fireEvent.change(passwordConfirmInput, { target: { value: 'password123' } })
 
     const signUpButton = getByText('Sign up now!')
     fireEvent.click(signUpButton)

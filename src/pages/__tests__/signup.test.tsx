@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
-import LoginPage from '../login.page'
+import SignupPage from '../signup.page'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import { UNAUTHED_USER_MOCK, AUTHED_USER_MOCK } from '../../../test/testData'
 
@@ -16,7 +16,7 @@ jest.mock('next/router', () => ({
 
 jest.mock('@/hooks/useFirebaseAuth')
 
-describe('LoginPage', () => {
+describe('SignupPage', () => {
   describe('when user is not authenticated', () => {
     beforeEach(() => {
       ;(useFirebaseAuth as jest.Mock).mockReturnValue({
@@ -27,22 +27,22 @@ describe('LoginPage', () => {
     })
 
     it('renders without crashing', () => {
-      const { container } = render(<LoginPage />)
+      const { container } = render(<SignupPage />)
       expect(container).toBeInTheDocument()
     })
 
-    it('should render a login form by default', () => {
-      const { getByText } = render(<LoginPage />)
-      expect(getByText('Login now')).toBeInTheDocument()
+    it('should render a sign in form by default', () => {
+      const { getByText } = render(<SignupPage />)
+      expect(getByText('Sign Up')).toBeInTheDocument()
     })
 
-    it('should redirect to signup when user clicks signup link', () => {
-      const { getByText } = render(<LoginPage />)
+    it('should redirect to login page when user clicks signup link', () => {
+      const { getByText } = render(<SignupPage />)
 
-      const signUpLink = getByText('Sign up for free')
+      const signUpLink = getByText('Login now')
       fireEvent.click(signUpLink)
 
-      expect(mockPush).toHaveBeenCalledWith('/signup')
+      expect(mockPush).toHaveBeenCalledWith('/login')
     })
   })
 
@@ -56,7 +56,7 @@ describe('LoginPage', () => {
     })
 
     it('should redirect to the /app route when the user is logged in', () => {
-      render(<LoginPage />)
+      render(<SignupPage />)
 
       expect(mockPush).toHaveBeenCalledWith('/app')
     })

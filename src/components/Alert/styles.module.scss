@@ -1,0 +1,10 @@
+@import "../../styles/partials/variables";
+@import "../../styles/mixins/typography";
+
+.alert {
+    @include copy-err;
+    border: .125rem solid $color-nasturcian-flower;
+    border-radius: $border-radius;
+    padding: .5rem;
+    background: $color-nasturcian-flower--light;
+}

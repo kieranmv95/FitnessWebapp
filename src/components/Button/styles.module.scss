@@ -1,0 +1,19 @@
+@import "../../styles/partials/variables";
+
+.button {
+    background-color: $color-protoss-pylon;
+    color: $color-lynx-white;
+    padding: .75rem 1.2rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-size: .9rem;
+    &:hover {
+        background-color: $color-vanadyl-blue;
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 .1rem $color-vanadyl-blue;
+    }
+}
