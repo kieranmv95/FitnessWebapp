@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import { Login } from '@/components/Forms'
+import Seo from '@/components/Seo'
 import styles from '../styles/pages/loginsignup.module.scss'
 
 export default function LoginPage() {
@@ -13,16 +13,11 @@ export default function LoginPage() {
     if (!user.loading && user.loggedIn) {
       router.push('/app')
     }
-  }, [user])
+  }, [user, router])
 
   return (
     <>
-      <Head>
-        <title>Fitness App | Login</title>
-        <meta name="description" content="Fitness App" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Seo title="Login" description="Login to your Fitness App account" />
       <h1>Fitness App</h1>
       <div className={styles.loginForm}>
         <Login />
