@@ -1,5 +1,5 @@
-import Head from 'next/head'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import Seo from '@/components/Seo'
 
 export default function App() {
   const { user, logout } = useFirebaseAuth(true)
@@ -8,16 +8,9 @@ export default function App() {
 
   return (
     <>
-      <Head>
-        <title>Fitness App | App</title>
-        <meta name="description" content="Fitness App" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <>
-        <h1>Welcome {user.data?.email}</h1>
-        <button onClick={logout}>Logout</button>
-      </>
+      <Seo title="Dashboard" description="Fitness App Dashboard" />
+      <h1>Welcome {user.data?.email}</h1>
+      <button onClick={logout}>Logout</button>
     </>
   )
 }
