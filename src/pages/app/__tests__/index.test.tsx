@@ -46,6 +46,6 @@ describe('App', () => {
 
   it('should render welcome user email when user is logged in', () => {
     const { getByText } = render(<AppPage />)
-    expect(getByText('Welcome test@test.com')).toBeInTheDocument()
+    expect(getByText('test@test.com')).toBeInTheDocument()
   })
 })

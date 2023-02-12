@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import FormGroup from '@/components/FormGroup'
 import Button from '@/components/Button'
-import styles from './styles.module.scss'
 import Alert from '@/components/Alert'
 
 const LoginSchema = Yup.object().shape({
@@ -37,9 +36,9 @@ const LoginForm = () => {
   })
 
   return (
-    <div className={styles.form}>
-      <h2 className={styles.title}>Login</h2>
-      <p className={styles.subtitle}>Welcome back, please enter your details</p>
+    <div className="mt-10 w-full max-w-sm shadow-xl px-6 py-8 rounded-md mx-auto border border-zinc-100">
+      <h1 className="text-2xl font-bold mb-1">Login</h1>
+      <p className="mb-5">Welcome back, please enter your details</p>
       <form onSubmit={loginForm.handleSubmit}>
         <FormGroup
           label="Email"
@@ -67,9 +66,7 @@ const LoginForm = () => {
           autoComplete="current-password"
         />
 
-        <Button className={styles.button} type="submit">
-          Login now
-        </Button>
+        <Button type="submit">Login now</Button>
       </form>
       {loginFailed && <Alert message="Login failed" />}
     </div>

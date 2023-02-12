@@ -7,7 +7,7 @@ import { UNAUTHED_USER_MOCK } from '../../../../../test/testData'
 const mockSignUp = jest.fn()
 jest.mock('@/hooks/useFirebaseAuth')
 
-describe('SignUpForm', () => {
+describe('<SignUpForm />', () => {
   beforeEach(() => {
     ;(useFirebaseAuth as jest.Mock).mockReturnValue({
       user: UNAUTHED_USER_MOCK,

@@ -1,6 +1,5 @@
 import Input, { InputProps } from '@/components/Input'
 import cx from 'classnames'
-import styles from './styles.module.scss'
 
 type FormGroupProps = InputProps & {
   errorMsg?: string
@@ -8,11 +7,11 @@ type FormGroupProps = InputProps & {
 }
 
 const FormGroup = (props: FormGroupProps) => (
-  <div className={styles.formGroup}>
+  <div className="mb-5">
     {props.label && (
       <label
+        className="block uppercase tracking-wide text-zinc-800 text-sm font-bold mb-1"
         htmlFor={props.id}
-        className={cx(styles.label, props.error && styles.labelError)}
       >
         {props.label}
       </label>
@@ -27,7 +26,11 @@ const FormGroup = (props: FormGroupProps) => (
       value={props.value}
       autoComplete={props.autoComplete}
     />
-    {props.error && <div className={styles.copyError}>{props.errorMsg}</div>}
+    {props.error && (
+      <p className="text-red-500 font-semibold text-sm mt-1">
+        {props.errorMsg}
+      </p>
+    )}
   </div>
 )
 

@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-electromagnetic: #2f3640;
+    --color-chain-gang-grey: #718093;
+    --color-nasturcian-flower: #e84118;
+    --color-vanadyl-blue: #0097e6;
+    --color-protoss-pylon: #00a8ff;
+    --color-lynx-white: #f5f6fa;
+}
