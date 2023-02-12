@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
-import PrivateRoute from '../index'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import PrivateRoute from '../index'
 import { UNAUTHED_USER_MOCK } from '../../../../test/testData'
 
 const mockPush = jest.fn()
