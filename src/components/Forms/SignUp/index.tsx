@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
+import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import FormGroup from '@/components/FormGroup'
 import Button from '@/components/Button'
-import styles from './styles.module.scss'
 import Alert from '@/components/Alert'
 
 const SignUpSchema = Yup.object().shape({
@@ -42,9 +41,9 @@ const SignUpForm = () => {
   })
 
   return (
-    <div className={styles.form}>
-      <h2 className={styles.title}>Sign Up</h2>
-      <p className={styles.subtitle}>Sign up for free now!</p>
+    <div className="mt-10 w-full max-w-sm shadow-xl px-6 py-8 rounded-md mx-auto border border-zinc-100">
+      <h2 className="text-2xl font-bold mb-1">Sign Up</h2>
+      <p className="mb-5">Sign up for free now!</p>
       <form onSubmit={signUpForm.handleSubmit}>
         <FormGroup
           label="Email"
@@ -87,9 +86,7 @@ const SignUpForm = () => {
           value={signUpForm.values.passwordConfirmation}
           autoComplete="new-password"
         />
-        <Button className={styles.button} type="submit">
-          Sign up now!
-        </Button>
+        <Button type="submit">Sign up now!</Button>
       </form>
       {signUpFailed && <Alert message="Signup failed" />}
     </div>

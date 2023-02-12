@@ -1,15 +1,17 @@
 import { ReactNode } from 'react'
-import cx from 'classnames'
-import styles from './styles.module.scss'
 
 type ButtonProps = {
   type?: 'button' | 'submit' | 'reset'
   children: ReactNode
-  className?: string
+  onClick?: () => void
 }
 
-const Button = ({ children, className, ...props }: ButtonProps) => (
-  <button className={cx(className, styles.button)} {...props}>
+const Button = ({ children, type = 'button', ...props }: ButtonProps) => (
+  <button
+    type={type}
+    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline"
+    {...props}
+  >
     {children}
   </button>
 )
