@@ -94,11 +94,6 @@ const useExercise = () => {
     }
   }, [dispatch, exercises.data.length])
 
-  const exercisesList = () => {
-    // placeholder function for querying exercises
-    return exercises
-  }
-
   return exercises
 }
 

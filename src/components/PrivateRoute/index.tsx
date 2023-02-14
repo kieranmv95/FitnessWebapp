@@ -16,8 +16,9 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     }
   }, [user])
 
-  if (user.loading || !user.loggedIn)
+  if (user.loading || !user.loggedIn) {
     return <div className="p-6">Loading...</div>
+  }
 
   return <>{children}</>
 }

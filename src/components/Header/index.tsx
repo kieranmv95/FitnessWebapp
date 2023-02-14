@@ -45,13 +45,13 @@ const Header = () => {
               <>
                 <Link
                   href="/app"
-                  className="block mt-4 lg:inline-block lg:mt-0 text-zinc-100 mr-4"
+                  className="block mt-4 lg:inline-block lg:mt-0 mr-4"
                 >
                   Dashboard
                 </Link>
                 <Link
                   href="/app/exercises"
-                  className="block mt-4 lg:inline-block lg:mt-0 text-zinc-100"
+                  className="block mt-4 lg:inline-block lg:mt-0"
                 >
                   Exercises
                 </Link>
@@ -63,14 +63,14 @@ const Header = () => {
             {user.loggedIn ? (
               <button
                 onClick={() => logout()}
-                className="inline-block text-sm px-4 py-2 leading-none border rounded text-zinc-100 border-white hover:border-transparent hover:text-zinc-800 hover:bg-zinc-100 mt-4 lg:mt-0"
+                className="inline-block text-sm px-4 py-2 leading-none border rounded border-white hover:border-transparent hover:text-zinc-800 hover:bg-zinc-100 mt-4 lg:mt-0"
               >
                 Logout
               </button>
             ) : (
               <Link
                 href="/login"
-                className="inline-block text-sm px-4 py-2 leading-none border rounded text-zinc-100 border-white hover:border-transparent hover:text-zinc-800 hover:bg-zinc-100 mt-4 lg:mt-0"
+                className="inline-block text-sm px-4 py-2 leading-none border rounded border-white hover:border-transparent hover:text-zinc-800 hover:bg-zinc-100 mt-4 lg:mt-0"
               >
                 Login
               </Link>
