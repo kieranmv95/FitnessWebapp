@@ -6,13 +6,15 @@ import { Provider } from 'react-redux'
 import { setupStore } from '@/store'
 
 const openSans = Open_Sans({
-  weight: ['400', '700'],
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
 })
 
+const store = setupStore()
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={setupStore()}>
+    <Provider store={store}>
       <main className={openSans.className}>
         <Header />
         <Component {...pageProps} />

@@ -27,8 +27,8 @@ export default function App() {
 
     return Object.keys(exerciseList).map((key) => (
       <div key={key}>
-        <p className="py-2 text-xl font-extrabold bg-white">{key}</p>
-        <div className="py-2 grid gap-3">
+        <p className="py-2 text-xl font-bold bg-white">{key}</p>
+        <div className="py-2 grid gap-3 md:gap-6">
           {exerciseList[key].map((exercise) => (
             <ExerciseCard key={exercise.name} exercise={exercise} />
           ))}
@@ -40,8 +40,8 @@ export default function App() {
   return (
     <PrivateRoute>
       <Seo title="Dashboard" description="Fitness App Dashboard" />
-      <div className="text-zinc-800 w-full max-w-xl mx-auto mt-5">
-        <h1 className="font-semibold text-3xl mb-4 mt-6">Exercises</h1>
+      <div className="text-zinc-800 p-6">
+        <h1 className="font-semibold text-3xl mb-4">Exercises</h1>
         {exerciseState.loading && <p>Loading...</p>}
         {getExercises()}
       </div>

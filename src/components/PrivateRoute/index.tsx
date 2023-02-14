@@ -17,7 +17,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   }, [user])
 
   if (user.loading || !user.loggedIn)
-    return <div className="w-full max-w-xl mx-auto mt-5">Loading...</div>
+    return <div className="p-6">Loading...</div>
 
   return <>{children}</>
 }
