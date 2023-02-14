@@ -42,12 +42,20 @@ const Header = () => {
         >
           <div className="text-sm lg:flex-grow">
             {user.loggedIn && (
-              <Link
-                href="/app"
-                className="block mt-4 lg:inline-block lg:mt-0 text-zinc-100"
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link
+                  href="/app"
+                  className="block mt-4 lg:inline-block lg:mt-0 text-zinc-100 mr-4"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/app/exercises"
+                  className="block mt-4 lg:inline-block lg:mt-0 text-zinc-100"
+                >
+                  Exercises
+                </Link>
+              </>
             )}
           </div>
 

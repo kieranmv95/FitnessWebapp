@@ -16,8 +16,6 @@ jest.mock('next/router', () => ({
 
 jest.mock('@/hooks/useFirebaseAuth')
 
-jest.mock('@/hooks/useFirebaseAuth')
-
 describe('App', () => {
   beforeEach(() => {
     ;(useFirebaseAuth as jest.Mock).mockReturnValue({
