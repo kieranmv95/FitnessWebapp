@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import FormGroup from '../select'
 
-describe('<FormGroup />', () => {
+describe('<SelectFormGroup />', () => {
   const sharedProps = {
     label: 'Select Label',
     id: 'email',

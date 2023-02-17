@@ -1,20 +1,18 @@
 import Input, { InputProps } from '@/components/Input'
+import FormGroup from '@/components/FormGroup/FormGroup'
 
-type FormGroupProps = InputProps & {
+type InputFormGroupProps = InputProps & {
   errorMsg?: string
   label?: string
 }
 
-const InputFormGroup = (props: FormGroupProps) => (
-  <div className="mb-5">
-    {props.label && (
-      <label
-        className="block uppercase tracking-wide text-zinc-800 text-sm font-bold mb-1"
-        htmlFor={props.id}
-      >
-        {props.label}
-      </label>
-    )}
+const InputFormGroup = (props: InputFormGroupProps) => (
+  <FormGroup
+    id={props.id}
+    errorMsg={props.errorMsg}
+    error={props.error}
+    label={props.label}
+  >
     <Input
       error={props.error}
       type={props.type}
@@ -25,12 +23,7 @@ const InputFormGroup = (props: FormGroupProps) => (
       value={props.value}
       autoComplete={props.autoComplete}
     />
-    {props.error && (
-      <p className="text-red-500 font-semibold text-sm mt-1">
-        {props.errorMsg}
-      </p>
-    )}
-  </div>
+  </FormGroup>
 )
 
 export default InputFormGroup
