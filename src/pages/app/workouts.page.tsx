@@ -5,7 +5,7 @@ export default function Workouts() {
   return (
     <PrivateRoute>
       <Seo
-        title="Workouts`"
+        title="Workouts"
         description="Create and start your new workouts here"
       />
       <div className="text-zinc-800 p-6">
