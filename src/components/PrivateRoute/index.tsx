@@ -1,6 +1,7 @@
 import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import Loading from '@/components/Loading'
 
 type PrivateRouteProps = {
   children: ReactNode
@@ -17,7 +18,11 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   }, [user])
 
   if (user.loading || !user.loggedIn) {
-    return <div className="p-6">Loading...</div>
+    return (
+      <div className="p-6">
+        <Loading />
+      </div>
+    )
   }
 
   return <>{children}</>

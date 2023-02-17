@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux'
 import { clearNamedFilter } from '@/slice/filterSlice'
-import { XMarkIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon } from '@heroicons/react/24/solid'
 import cx from 'classnames'
 
 type AppliedFiltersProps = {
@@ -25,9 +25,9 @@ const AppliedFilters = ({ results }: AppliedFiltersProps) => {
       </p>
       <div className="flex gap-2 text-zinc-100 text-sm mt-3 flex-wrap">
         {textSearch && (
-          <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto]">
+          <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto] gap-1">
             Search: {textSearch}{' '}
-            <XMarkIcon
+            <XCircleIcon
               className="fill-current h-5 w-5 cursor-pointer"
               onClick={() => dispatch(clearNamedFilter('textSearch'))}
               aria-label="textSearch-clear"
@@ -35,9 +35,9 @@ const AppliedFilters = ({ results }: AppliedFiltersProps) => {
           </div>
         )}
         {category && (
-          <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto]">
+          <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto] gap-1">
             {category}{' '}
-            <XMarkIcon
+            <XCircleIcon
               className="fill-current h-5 w-5 cursor-pointer"
               onClick={() => dispatch(clearNamedFilter('category'))}
               aria-label="category-clear"
@@ -45,9 +45,9 @@ const AppliedFilters = ({ results }: AppliedFiltersProps) => {
           </div>
         )}
         {muscleGroup && (
-          <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto]">
+          <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto] gap-1">
             {muscleGroup}{' '}
-            <XMarkIcon
+            <XCircleIcon
               className="fill-current h-5 w-5 cursor-pointer"
               onClick={() => dispatch(clearNamedFilter('muscleGroup'))}
               aria-label="muscleGroup-clear"

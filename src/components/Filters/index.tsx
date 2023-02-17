@@ -19,7 +19,7 @@ const Filters = () => {
 
   return (
     <div className="md:sticky md:top-6">
-      <div className="bg-white rounded-md shadow-md p-4">
+      <div className="bg-white rounded-md shadow md:shadow-md p-4">
         <div className="flex gap-3">
           <h2 className="font-semibold text-xl">Filters</h2>
           <div className="md:hidden">
