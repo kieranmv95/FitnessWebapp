@@ -6,6 +6,7 @@ import PrivateRoute from '@/components/PrivateRoute'
 import ExerciseCard from '@/components/ExerciseCard'
 import Filters from '@/components/Filters'
 import AppliedFilters from '@/components/AppliedFilters'
+import Loading from '@/components/Loading'
 
 type ExerciseListReducer = {
   [key: string]: IExercise[]
@@ -64,7 +65,7 @@ export default function App() {
       <Seo title="Dashboard" description="Fitness App Dashboard" />
       <div className="text-zinc-800 p-6">
         <h1 className="font-semibold text-3xl mb-4">Exercises</h1>
-        {exerciseState.loading && <p>Loading...</p>}
+        {exerciseState.loading && <Loading />}
         {!exerciseState.loading && (
           <div className="md:grid md:gap-6 md:grid-cols-[15rem_1fr] lg:grid-cols-[20rem_1fr]">
             <div>
