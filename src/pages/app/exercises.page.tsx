@@ -1,8 +1,11 @@
 import Seo from '@/components/Seo'
-import PrivateRoute from '@/components/PrivateRoute'
+import { useAppSelector } from '@/hooks/useRedux'
 import useExercise from '@/hooks/useExercise'
-import ExerciseCard from '@/components/ExerciseCard'
 import { IExercise } from '@/slice/exercisesSlice'
+import PrivateRoute from '@/components/PrivateRoute'
+import ExerciseCard from '@/components/ExerciseCard'
+import Filters from '@/components/Filters'
+import AppliedFilters from '@/components/AppliedFilters'
 
 type ExerciseListReducer = {
   [key: string]: IExercise[]
@@ -10,20 +13,36 @@ type ExerciseListReducer = {
 
 export default function App() {
   const exerciseState = useExercise()
+  const { textSearch, category, muscleGroup } = useAppSelector(
+    (state) => state.filters,
+  )
 
   const getExercises = () => {
     const exerciseList = [...exerciseState.data]
       .sort((a, b) => a.name.localeCompare(b.name))
-      .reduce((acc, curr) => {
-        const firstLetter = curr.name.charAt(0).toUpperCase()
-        if (!acc[firstLetter]) {
-          acc[firstLetter] = [curr]
-        } else {
-          acc[firstLetter].push(curr)
-        }
+      .filter(
+        (exercise) =>
+          exercise.name.toLowerCase().includes(textSearch.toLowerCase()) ||
+          exercise.category.toLowerCase().includes(textSearch.toLowerCase()) ||
+          exercise.muscleGroup.toLowerCase().includes(textSearch.toLowerCase()),
+      )
+      .filter((exercise) => exercise.category.includes(category))
+      .filter((exercise) => exercise.muscleGroup.includes(muscleGroup))
 
-        return acc
-      }, {} as ExerciseListReducer)
+    return exerciseList
+  }
+
+  const groupExercises = (exercises: IExercise[]) => {
+    const exerciseList = exercises.reduce((acc, curr) => {
+      const firstLetter = curr.name.charAt(0).toUpperCase()
+      if (!acc[firstLetter]) {
+        acc[firstLetter] = [curr]
+      } else {
+        acc[firstLetter].push(curr)
+      }
+
+      return acc
+    }, {} as ExerciseListReducer)
 
     return Object.keys(exerciseList).map((key) => (
       <div key={key}>
@@ -37,13 +56,26 @@ export default function App() {
     ))
   }
 
+  const exercises = getExercises()
+  const exerciseGrouped = groupExercises(exercises)
+
   return (
     <PrivateRoute>
       <Seo title="Dashboard" description="Fitness App Dashboard" />
       <div className="text-zinc-800 p-6">
         <h1 className="font-semibold text-3xl mb-4">Exercises</h1>
         {exerciseState.loading && <p>Loading...</p>}
-        {getExercises()}
+        {!exerciseState.loading && (
+          <div className="md:grid md:gap-6 md:grid-cols-[15rem_1fr] lg:grid-cols-[20rem_1fr]">
+            <div>
+              <Filters />
+            </div>
+            <div>
+              <AppliedFilters results={exercises.length} />
+              {exerciseGrouped}
+            </div>
+          </div>
+        )}
       </div>
     </PrivateRoute>
   )

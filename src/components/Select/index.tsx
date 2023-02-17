@@ -1,19 +1,17 @@
 import { ChangeEvent } from 'react'
 import cx from 'classnames'
 
-export type InputProps = {
+export type SelectProps = {
   error?: boolean
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void
   value: string
-  type: 'text' | 'password'
   id: string
   name: string
-  placeholder: string
-  autoComplete?: string
+  children: React.ReactNode
 }
 
-const Input = ({ error, ...props }: InputProps) => (
-  <input
+const Select = ({ error, children, ...props }: SelectProps) => (
+  <select
     className={cx(
       'appearance-none block w-full bg-gray-100 text-zinc-800 border rounded py-2 px-3 focus:outline-none focus:bg-white focus:ring',
       error
@@ -21,7 +19,9 @@ const Input = ({ error, ...props }: InputProps) => (
         : 'border-zinc-400 focus:border-zinc-800 focus:ring-zinc-300',
     )}
     {...props}
-  />
+  >
+    {children}
+  </select>
 )
 
-export default Input
+export default Select

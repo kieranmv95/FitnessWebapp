@@ -2,7 +2,7 @@ import { useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
-import FormGroup from '@/components/FormGroup'
+import { Input } from '@/components/FormGroup'
 import Button from '@/components/Button'
 import Alert from '@/components/Alert'
 
@@ -45,7 +45,7 @@ const SignUpForm = () => {
       <h2 className="text-2xl font-bold mb-1">Sign Up</h2>
       <p className="mb-5">Sign up for free now!</p>
       <form onSubmit={signUpForm.handleSubmit}>
-        <FormGroup
+        <Input
           label="Email"
           error={!!(signUpForm.errors.email && signUpForm.touched.email)}
           errorMsg={signUpForm.errors.email}
@@ -57,7 +57,7 @@ const SignUpForm = () => {
           value={signUpForm.values.email}
           autoComplete="email"
         />
-        <FormGroup
+        <Input
           label="Password"
           error={!!(signUpForm.errors.password && signUpForm.touched.password)}
           errorMsg={signUpForm.errors.password}
@@ -69,7 +69,7 @@ const SignUpForm = () => {
           value={signUpForm.values.password}
           autoComplete="new-password"
         />
-        <FormGroup
+        <Input
           label="Confirm Password"
           error={
             !!(

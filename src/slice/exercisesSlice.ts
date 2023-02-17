@@ -1,10 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export type ICategory =
+  | 'Barbell'
+  | 'Dumbbell'
+  | 'Bodyweight'
+  | 'Cardio'
+  | 'Cable'
+  | 'Machine'
+  | 'Kettlebell'
+  | 'Duration'
+  | 'Reps'
+
+export type IMuscleGroup =
+  | 'Arms'
+  | 'Back'
+  | 'Chest'
+  | 'Core'
+  | 'Legs'
+  | 'Shoulders'
+  | 'Olympic'
+  | 'Full Body'
+  | 'Cardio'
+
 export type IExercise = {
   name: string
-  muscleGroup: string[]
-  equipment: string
-  category: string
+  muscleGroup: IMuscleGroup
+  category: ICategory
 }
 
 export type IExerciseState = {

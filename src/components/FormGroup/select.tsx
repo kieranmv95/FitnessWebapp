@@ -1,12 +1,11 @@
-import Input, { InputProps } from '@/components/Input'
-import cx from 'classnames'
+import Select, { SelectProps } from '@/components/Select'
 
-type FormGroupProps = InputProps & {
+type FormGroupProps = SelectProps & {
   errorMsg?: string
   label?: string
 }
 
-const FormGroup = (props: FormGroupProps) => (
+const SelectFormGroup = (props: FormGroupProps) => (
   <div className="mb-5">
     {props.label && (
       <label
@@ -16,16 +15,16 @@ const FormGroup = (props: FormGroupProps) => (
         {props.label}
       </label>
     )}
-    <Input
-      error={props.error}
-      type={props.type}
-      id={props.id}
-      name={props.name}
-      placeholder={props.placeholder}
+
+    <Select
       onChange={props.onChange}
       value={props.value}
-      autoComplete={props.autoComplete}
-    />
+      id={props.id}
+      name={props.name}
+    >
+      {props.children}
+    </Select>
+
     {props.error && (
       <p className="text-red-500 font-semibold text-sm mt-1">
         {props.errorMsg}
@@ -34,4 +33,4 @@ const FormGroup = (props: FormGroupProps) => (
   </div>
 )
 
-export default FormGroup
+export default SelectFormGroup

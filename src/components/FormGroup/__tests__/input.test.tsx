@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import FormGroup from '../index'
+import FormGroup from '../input'
 
 describe('<FormGroup />', () => {
   const sharedProps = {
