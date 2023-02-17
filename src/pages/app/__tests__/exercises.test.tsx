@@ -56,6 +56,10 @@ describe('<ExercisePage />', () => {
     })
   })
 
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
   it('renders without crashing', () => {
     const { container } = renderWithProviders(<ExercisePage />)
     expect(container).toBeInTheDocument()

@@ -4,7 +4,7 @@ import Button from '@/components/Button'
 import { useRouter } from 'next/router'
 
 export default function Workouts() {
-  const { push } = useRouter()
+  const router = useRouter()
 
   return (
     <PrivateRoute>
@@ -14,7 +14,9 @@ export default function Workouts() {
       />
       <div className="text-zinc-800 p-6">
         <h1 className="font-semibold text-3xl mb-4">Workouts</h1>
-        <Button onClick={() => push('/app/workouts/new')}>New Workout</Button>
+        <Button onClick={() => router.push('/app/workouts/new')}>
+          New Workout
+        </Button>
       </div>
     </PrivateRoute>
   )

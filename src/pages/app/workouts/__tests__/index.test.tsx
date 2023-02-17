@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import WorkoutPage from '../index.page'
 import { AUTHED_USER_MOCK } from '../../../../../test/testData'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
@@ -7,11 +7,11 @@ import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 const mockPush = jest.fn()
 
 jest.mock('next/router', () => ({
-  useRouter: jest.fn(() => {
+  useRouter: () => {
     return {
       push: mockPush,
     }
-  }),
+  },
 }))
 
 jest.mock('@/hooks/useFirebaseAuth')
@@ -33,10 +33,10 @@ describe('<WorkoutPage />', () => {
     expect(container).toBeInTheDocument()
   })
 
-  it('should redirect to new eworkout page when button is clicked', () => {
+  it('should redirect to new workout page when button is clicked', () => {
     const { getByText } = render(<WorkoutPage />)
     const button = getByText('New Workout')
-    button.click()
+    fireEvent.click(button)
     expect(mockPush).toHaveBeenCalledWith('/app/workouts/new')
   })
 })
