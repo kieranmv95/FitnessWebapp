@@ -27,16 +27,18 @@ describe('<SignUpForm />', () => {
     fireEvent.change(emailInput, { target: { value: 'test@test.com' } })
 
     const passwordInput = getByPlaceholderText('Enter password')
-    fireEvent.change(passwordInput, { target: { value: 'password123' } })
+    fireEvent.change(passwordInput, { target: { value: 'StongP@ssw0rd' } })
 
     const passwordConfirmInput = getByPlaceholderText('Confirm password')
-    fireEvent.change(passwordConfirmInput, { target: { value: 'password123' } })
+    fireEvent.change(passwordConfirmInput, {
+      target: { value: 'StongP@ssw0rd' },
+    })
 
     const signUpButton = getByText('Sign up now!')
     fireEvent.click(signUpButton)
 
     await waitFor(() => {
-      expect(mockSignUp).toHaveBeenCalledWith('test@test.com', 'password123')
+      expect(mockSignUp).toHaveBeenCalledWith('test@test.com', 'StongP@ssw0rd')
     })
   })
 
@@ -64,16 +66,49 @@ describe('<SignUpForm />', () => {
     fireEvent.change(emailInput, { target: { value: 'test@fail.com' } })
 
     const passwordInput = getByPlaceholderText('Enter password')
-    fireEvent.change(passwordInput, { target: { value: 'password123' } })
+    fireEvent.change(passwordInput, { target: { value: 'StongP@ssw0rd' } })
 
     const passwordConfirmInput = getByPlaceholderText('Confirm password')
-    fireEvent.change(passwordConfirmInput, { target: { value: 'password123' } })
+    fireEvent.change(passwordConfirmInput, {
+      target: { value: 'StongP@ssw0rd' },
+    })
 
     const signUpButton = getByText('Sign up now!')
     fireEvent.click(signUpButton)
 
     await waitFor(() => {
       expect(getByText('Signup failed')).toBeInTheDocument()
+    })
+  })
+
+  it('should show an error for a shit password', async () => {
+    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
+      user: UNAUTHED_USER_MOCK,
+      signUp: jest.fn(),
+    })
+
+    const { getByText, getByPlaceholderText } = render(<SignUpForm />)
+
+    const emailInput = getByPlaceholderText('Enter email')
+    fireEvent.change(emailInput, { target: { value: 'test@fail.com' } })
+
+    const passwordInput = getByPlaceholderText('Enter password')
+    fireEvent.change(passwordInput, { target: { value: 'shit password' } })
+
+    const passwordConfirmInput = getByPlaceholderText('Confirm password')
+    fireEvent.change(passwordConfirmInput, {
+      target: { value: 'shit password' },
+    })
+
+    const signUpButton = getByText('Sign up now!')
+    fireEvent.click(signUpButton)
+
+    await waitFor(() => {
+      expect(
+        getByText(
+          'Password must be at least 8 characters, contain a special character, uppercase, lowercase and a number',
+        ),
+      ).toBeInTheDocument()
     })
   })
 })
