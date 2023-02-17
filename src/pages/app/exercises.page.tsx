@@ -62,7 +62,7 @@ export default function App() {
 
   return (
     <PrivateRoute>
-      <Seo title="Dashboard" description="Fitness App Dashboard" />
+      <Seo title="Exercises" description="Look at all the exercises" />
       <div className="text-zinc-800 p-6">
         <h1 className="font-semibold text-3xl mb-4">Exercises</h1>
         {exerciseState.loading && <Loading />}

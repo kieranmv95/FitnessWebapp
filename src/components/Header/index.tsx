@@ -51,9 +51,15 @@ const Header = () => {
                 </Link>
                 <Link
                   href="/app/exercises"
-                  className="block mt-4 lg:inline-block lg:mt-0"
+                  className="block mt-4 lg:inline-block lg:mt-0 mr-4"
                 >
                   Exercises
+                </Link>
+                <Link
+                  href="/app/workouts"
+                  className="block mt-4 lg:inline-block lg:mt-0"
+                >
+                  Workouts
                 </Link>
               </>
             )}
