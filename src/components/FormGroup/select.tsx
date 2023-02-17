@@ -1,21 +1,18 @@
 import Select, { SelectProps } from '@/components/Select'
+import FormGroup from '@/components/FormGroup/FormGroup'
 
-type FormGroupProps = SelectProps & {
+type SelectFormGroupProps = SelectProps & {
   errorMsg?: string
   label?: string
 }
 
-const SelectFormGroup = (props: FormGroupProps) => (
-  <div className="mb-5">
-    {props.label && (
-      <label
-        className="block uppercase tracking-wide text-zinc-800 text-sm font-bold mb-1"
-        htmlFor={props.id}
-      >
-        {props.label}
-      </label>
-    )}
-
+const SelectFormGroup = (props: SelectFormGroupProps) => (
+  <FormGroup
+    id={props.id}
+    errorMsg={props.errorMsg}
+    error={props.error}
+    label={props.label}
+  >
     <Select
       onChange={props.onChange}
       value={props.value}
@@ -24,13 +21,7 @@ const SelectFormGroup = (props: FormGroupProps) => (
     >
       {props.children}
     </Select>
-
-    {props.error && (
-      <p className="text-red-500 font-semibold text-sm mt-1">
-        {props.errorMsg}
-      </p>
-    )}
-  </div>
+  </FormGroup>
 )
 
 export default SelectFormGroup

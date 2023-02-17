@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import FormGroup from '../input'
 
-describe('<FormGroup />', () => {
+describe('<InputFormGroup />', () => {
   const sharedProps = {
     label: 'Email Label',
     type: 'text' as 'text' | 'password',
