@@ -9,13 +9,10 @@ const ExerciseCard = ({ exercise }: ExerciseCardProps) => (
     <div className="grid gap-1 md:inline-flex md:gap-4">
       <p className="text-xs md:text-sm">
         <span className="font-semibold">Muscle Group:</span>{' '}
-        {exercise.muscleGroup.join(', ')}
+        {exercise.muscleGroup}
       </p>
       <p className="text-xs md:text-sm">
         <span className="font-semibold">Category:</span> {exercise.category}
-      </p>
-      <p className="text-xs md:text-sm">
-        <span className="font-semibold">Equipment:</span> {exercise.equipment}
       </p>
     </div>
   </div>

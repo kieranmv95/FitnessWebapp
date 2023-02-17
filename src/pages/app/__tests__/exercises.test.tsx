@@ -3,6 +3,7 @@ import ExercisePage from '../exercises.page'
 import { renderWithProviders } from '../../../../test/utils'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import { AUTHED_USER_MOCK } from '../../../../test/testData'
+import { IExercise } from '@/slice/exercisesSlice'
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn(() => {
@@ -12,33 +13,36 @@ jest.mock('next/router', () => ({
 
 jest.mock('@/hooks/useFirebaseAuth')
 
-const exercises = {
+type IMockExercisesType = {
+  loading: boolean
+  data: IExercise[]
+  error: string
+}
+
+const exercises: IMockExercisesType = {
   loading: false,
   data: [
     {
       name: 'Bench Press',
-      muscleGroup: ['Chest'],
-      equipment: 'Barbell',
-      category: 'Strength',
+      muscleGroup: 'Chest',
+      category: 'Barbell',
     },
   ],
   error: '',
 }
 
-const multipleExercises = {
+const multipleExercises: IMockExercisesType = {
   loading: false,
   data: [
     {
       name: 'Bench Press',
-      muscleGroup: ['Chest'],
-      equipment: 'Barbell',
-      category: 'Strength',
+      muscleGroup: 'Chest',
+      category: 'Barbell',
     },
     {
       name: 'Calf Raise',
-      muscleGroup: ['Legs'],
-      equipment: 'Bodyweight',
-      category: 'Strength',
+      muscleGroup: 'Legs',
+      category: 'Bodyweight',
     },
   ],
   error: '',
@@ -97,5 +101,53 @@ describe('<ExercisePage />', () => {
     })
 
     expect(getByText('Loading...')).toBeInTheDocument()
+  })
+
+  it('filters when a text search is present', () => {
+    const { getByText } = renderWithProviders(<ExercisePage />, {
+      preloadedState: {
+        exercises: { ...exercises, loading: false },
+        filters: {
+          textSearch: 'Bench',
+          category: '',
+          muscleGroup: '',
+        },
+      },
+    })
+
+    expect(getByText('Bench Press')).toBeInTheDocument()
+    expect(getByText('1')).toBeInTheDocument()
+  })
+
+  it('filters when a category is present', () => {
+    const { getByText } = renderWithProviders(<ExercisePage />, {
+      preloadedState: {
+        exercises: { ...exercises, loading: false },
+        filters: {
+          textSearch: '',
+          category: 'Barbell',
+          muscleGroup: '',
+        },
+      },
+    })
+
+    expect(getByText('Bench Press')).toBeInTheDocument()
+    expect(getByText('1')).toBeInTheDocument()
+  })
+
+  it('filters when a category is present', () => {
+    const { getByText } = renderWithProviders(<ExercisePage />, {
+      preloadedState: {
+        exercises: { ...exercises, loading: false },
+        filters: {
+          textSearch: '',
+          category: '',
+          muscleGroup: 'Chest',
+        },
+      },
+    })
+
+    expect(getByText('Bench Press')).toBeInTheDocument()
+    expect(getByText('1')).toBeInTheDocument()
   })
 })
