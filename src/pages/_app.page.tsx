@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import Header from '@/components/Header'
 import { setupStore } from '@/store'
 import '@/styles/globals.css'
+import Modal from '@/components/Modal'
 
 const openSans = Open_Sans({
   weight: ['400', '500', '600', '700'],
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main className={openSans.className}>
         <Header />
         <Component {...pageProps} />
+        <Modal />
       </main>
     </Provider>
   )

@@ -16,7 +16,6 @@ describe('<AppliedFilters />', () => {
 
   it('displays correct messaging when no results are found', () => {
     const { getByText } = renderWithProviders(<AppliedFilters results={0} />)
-    expect(getByText('0')).toBeInTheDocument()
     expect(
       getByText('No exercises found for your current filter. Please try again'),
     ).toBeInTheDocument()

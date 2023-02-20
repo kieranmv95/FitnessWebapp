@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import NewWorkoutPage from '../new.page'
 import { AUTHED_USER_MOCK } from '../../../../../test/testData'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import { renderWithProviders } from '../../../../../test/utils'
 
 const mockPush = jest.fn()
 
@@ -29,12 +30,12 @@ describe('<NewWorkoutPage />', () => {
   })
 
   it('renders without crashing', () => {
-    const { container } = render(<NewWorkoutPage />)
+    const { container } = renderWithProviders(<NewWorkoutPage />)
     expect(container).toBeInTheDocument()
   })
 
   it('should render a add exercises button', () => {
-    const { getByText } = render(<NewWorkoutPage />)
+    const { getByText } = renderWithProviders(<NewWorkoutPage />)
     expect(getByText('Add Exercises')).toBeInTheDocument()
   })
 })

@@ -15,14 +15,11 @@ const AppliedFilters = ({ results }: AppliedFiltersProps) => {
 
   return (
     <div>
-      <p
-        className={cx(
-          'text-sm inline-block px-3 py-1 rounded-full text-zinc-100 mt-4 md:text-md',
-          results ? 'bg-green-500' : 'bg-red-400',
-        )}
-      >
-        <span className="font-bold">{results}</span> results
-      </p>
+      {results > 0 && (
+        <p className="text-sm inline-block px-3 py-1 rounded-full text-zinc-100 mt-4 md:text-md bg-green-500">
+          <span className="font-bold">{results}</span> results
+        </p>
+      )}
       <div className="flex gap-2 text-zinc-100 text-sm mt-3 flex-wrap">
         {textSearch && (
           <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto] gap-1">

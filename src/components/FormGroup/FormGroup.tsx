@@ -15,10 +15,10 @@ const FormGroup = ({
   id,
   error,
 }: FormGroupProps) => (
-  <div className="mb-5">
+  <div className="mb-3 md:mb-5">
     {label && (
       <label
-        className="block uppercase tracking-wide text-zinc-800 text-sm font-bold mb-1"
+        className="block uppercase tracking-wide text-zinc-800 text-xs md:text-sm font-bold mb-1"
         htmlFor={id}
       >
         {label}

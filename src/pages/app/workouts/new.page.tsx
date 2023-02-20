@@ -1,8 +1,12 @@
 import Seo from '@/components/Seo'
 import PrivateRoute from '@/components/PrivateRoute'
 import Button from '@/components/Button'
+import { openModal } from '@/slice/modalSlice'
+import { useAppDispatch } from '@/hooks/useRedux'
 
 export default function Workouts() {
+  const dispatch = useAppDispatch()
+
   return (
     <PrivateRoute>
       <Seo
@@ -11,7 +15,7 @@ export default function Workouts() {
       />
       <div className="text-zinc-800 p-6">
         <h1 className="font-semibold text-3xl mb-4">New Workout</h1>
-        <Button onClick={() => console.log('Add Exercise')}>
+        <Button onClick={() => dispatch(openModal('addExercise'))}>
           Add Exercises
         </Button>
       </div>
