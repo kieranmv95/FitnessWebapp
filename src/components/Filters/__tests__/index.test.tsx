@@ -3,6 +3,15 @@ import { act, fireEvent } from '@testing-library/react'
 import Filters from '../index'
 import { renderWithProviders } from '../../../../test/utils'
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    events: {
+      on: jest.fn(),
+      off: jest.fn(),
+    },
+  }),
+}))
+
 describe('<Filters />', () => {
   it('renders without crashing', () => {
     const { container } = renderWithProviders(<Filters />)

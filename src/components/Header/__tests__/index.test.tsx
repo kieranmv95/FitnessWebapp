@@ -53,6 +53,8 @@ describe('<Header />', () => {
     it('renders authenticated links', () => {
       const { getByText } = render(<Header />)
       expect(getByText('Dashboard')).toBeInTheDocument()
+      expect(getByText('Exercises')).toBeInTheDocument()
+      expect(getByText('Workouts')).toBeInTheDocument()
     })
   })
 })

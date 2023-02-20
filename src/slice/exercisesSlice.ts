@@ -23,6 +23,7 @@ export type IMuscleGroup =
   | 'Cardio'
 
 export type IExercise = {
+  id: string
   name: string
   muscleGroup: IMuscleGroup
   category: ICategory

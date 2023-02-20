@@ -9,7 +9,7 @@ type ButtonProps = {
 const Button = ({ children, type = 'button', ...props }: ButtonProps) => (
   <button
     type={type}
-    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline focus:ring"
+    className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 md:px-5 md:py-2.5 text-center"
     {...props}
   >
     {children}

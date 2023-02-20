@@ -17,6 +17,10 @@ jest.mock('next/router', () => ({
 jest.mock('@/hooks/useFirebaseAuth')
 
 describe('SignupPage', () => {
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
   describe('when user is not authenticated', () => {
     beforeEach(() => {
       ;(useFirebaseAuth as jest.Mock).mockReturnValue({
