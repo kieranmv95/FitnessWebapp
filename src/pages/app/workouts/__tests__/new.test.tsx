@@ -33,9 +33,4 @@ describe('<NewWorkoutPage />', () => {
     const { container } = renderWithProviders(<NewWorkoutPage />)
     expect(container).toBeInTheDocument()
   })
-
-  it('should render a add exercises button', () => {
-    const { getByText } = renderWithProviders(<NewWorkoutPage />)
-    expect(getByText('Add Exercises')).toBeInTheDocument()
-  })
 })

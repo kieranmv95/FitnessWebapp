@@ -4,6 +4,7 @@ export type ICategory =
   | 'Barbell'
   | 'Dumbbell'
   | 'Bodyweight'
+  | 'Assisted Bodyweight'
   | 'Cardio'
   | 'Cable'
   | 'Machine'
