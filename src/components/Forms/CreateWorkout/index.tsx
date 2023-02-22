@@ -3,12 +3,13 @@ import { Field, FieldArray, Formik } from 'formik'
 import { useState } from 'react'
 import { IExercise } from '@/slice/exercisesSlice'
 import { InputField, SelectField } from '@/components/Fields'
-import {
-  Reps,
-  WeightAndReps,
-  DistanceAndTime,
-} from '@/components/Forms/CreateWorkout/SetForms'
+import * as SetForms from '@/components/Forms/CreateWorkout/SetForms'
 import AddExerciseModal from '@/components/AddExerciseModal'
+import {
+  getSetHeader,
+  getSetShape,
+  getSetComponent,
+} from '@/components/Forms/CreateWorkout/helpers'
 
 export type IWorkoutExercise = IExercise & {
   sets: any[]
@@ -27,94 +28,6 @@ const CreateWorkout = () => {
     folder: 'none',
     exercises: [],
   })
-
-  const getSetShape = (category: string) => {
-    switch (category) {
-      case 'Dumbbell':
-      case 'Barbell':
-      case 'Cable':
-      case 'Machine':
-      case 'Kettlebell':
-        return {
-          weight: '',
-          reps: '',
-        }
-      case 'Reps':
-        return {
-          reps: '',
-        }
-      case 'Cardio':
-        return {
-          distance: '',
-          time: {
-            hh: '',
-            mm: '',
-            ss: '',
-          },
-        }
-      default:
-        return {
-          weight: '',
-          reps: '',
-        }
-    }
-  }
-
-  const getSetHeader = (category: string) => {
-    switch (category) {
-      case 'Dumbbell':
-      case 'Barbell':
-      case 'Cable':
-      case 'Machine':
-      case 'Kettlebell':
-        return (
-          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
-            <p>Set</p>
-            <p>KG</p>
-            <p>Reps</p>
-          </div>
-        )
-      case 'Bodyweight':
-        return (
-          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
-            <p>Set</p>
-            <p>KG (+)</p>
-            <p>Reps</p>
-          </div>
-        )
-      case 'Assisted Bodyweight':
-        return (
-          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
-            <p>Set</p>
-            <p>KG (-)</p>
-            <p>Reps</p>
-          </div>
-        )
-      case 'Reps':
-        return (
-          <div className="grid grid-cols-[2.125rem_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
-            <p>Set</p>
-            <p>Reps</p>
-          </div>
-        )
-      case 'Cardio':
-        return (
-          <div className="grid grid-cols-[2.125rem_1fr_9rem_2.125rem] md:grid-cols-[2.125rem_1fr_15rem_2.125rem] gap-1 mb-1 text-xs font-bold">
-            <p>Set</p>
-            <p>Km</p>
-            <p>Time</p>
-          </div>
-        )
-      default:
-        return (
-          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
-            <p>Set</p>
-            <p>KG</p>
-            <p>Reps</p>
-          </div>
-        )
-    }
-  }
 
   const addExercises = (values: IAddWorkoutFormState, e: IExercise[]) => {
     const exerciseSets = e.map((ex) => {
@@ -184,35 +97,22 @@ const CreateWorkout = () => {
                                 <>
                                   {ex.sets.map((set, setIndex) => {
                                     const exerciseProps = {
-                                      key: setIndex.toString(),
                                       index,
                                       setIndex,
                                       exercisesHelpers,
                                       ex,
                                       setsHelpers,
                                     }
-                                    switch (ex.category) {
-                                      case 'Dumbbell':
-                                      case 'Barbell':
-                                      case 'Cable':
-                                      case 'Machine':
-                                      case 'Kettlebell':
-                                      case 'Bodyweight':
-                                      case 'Assisted Bodyweight':
-                                        return (
-                                          <WeightAndReps {...exerciseProps} />
-                                        )
-                                      case 'Reps':
-                                        return <Reps {...exerciseProps} />
-                                      case 'Cardio':
-                                        return (
-                                          <DistanceAndTime {...exerciseProps} />
-                                        )
-                                      default:
-                                        return (
-                                          <WeightAndReps {...exerciseProps} />
-                                        )
-                                    }
+
+                                    const Component =
+                                      SetForms[getSetComponent(ex.category)]
+
+                                    return (
+                                      <Component
+                                        key={setIndex}
+                                        {...exerciseProps}
+                                      />
+                                    )
                                   })}
                                   <Button
                                     theme="secondary"
