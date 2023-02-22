@@ -46,14 +46,25 @@ const AddExerciseModal = ({
       id="defaultModal"
       tabIndex={-1}
       className="fixed top-0 left-0 right-0 z-50 w-full p-4 h-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal bg-black bg-opacity-70"
-      onClick={close}
+      onClick={() => {
+        setSelectedExercises([])
+        dispatch(clearFilters())
+        close()
+      }}
     >
       <div className="relative w-full h-full max-w-2xl md:h-auto mx-auto">
         <div
           className="relative bg-white rounded-lg shadow "
           onClick={(e) => e.stopPropagation()}
         >
-          <Header title="Add Exercise" closeModal={close} />
+          <Header
+            title="Add Exercise"
+            closeModal={() => {
+              setSelectedExercises([])
+              dispatch(clearFilters())
+              close()
+            }}
+          />
           <Body>
             <Filters removeBorder={true} removeSticky={true} />
             <ExerciseList

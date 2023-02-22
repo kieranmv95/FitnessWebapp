@@ -5,6 +5,7 @@ import { IExercise } from '@/slice/exercisesSlice'
 import { InputField, SelectField } from '@/components/Fields'
 import * as SetForms from '@/components/Forms/CreateWorkout/SetForms'
 import AddExerciseModal from '@/components/AddExerciseModal'
+import * as Yup from 'yup'
 import {
   getSetHeader,
   getSetShape,
@@ -20,6 +21,12 @@ type IAddWorkoutFormState = {
   folder: string
   exercises: IWorkoutExercise[]
 }
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required('Required'),
+  folder: Yup.string().required('Required'),
+  exercises: Yup.array(),
+})
 
 const CreateWorkout = () => {
   const [open, setOpen] = useState(false)
@@ -50,6 +57,7 @@ const CreateWorkout = () => {
       <Formik
         initialValues={formState}
         enableReinitialize={true}
+        validationSchema={validationSchema}
         onSubmit={(values) => {
           console.log(values)
         }}
