@@ -33,6 +33,7 @@ const WeightAndReps = ({
     />
     <div
       className="text-red-500 border border-red-500 rounded bg-red-100 flex items-center px-2"
+      aria-label={`Delete Set ${ex.name}`}
       onClick={() => {
         if (ex.sets.length === 1) {
           exercisesHelpers.remove(index)
