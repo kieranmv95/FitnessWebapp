@@ -3,7 +3,7 @@ import Select from '@/components/Select'
 
 type SelectFieldProps = {
   children: React.ReactNode
-  id?: string
+  id: string
   label?: string
   className?: string
   inputClassName?: string
@@ -40,6 +40,7 @@ const SelectField = ({
       </label>
     )}
     <Select
+      id={id}
       className={inputClassName}
       {...field}
       {...props}

@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import * as Yup from 'yup'
-import { useFormik } from 'formik'
+import { Field, Formik } from 'formik'
 import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
-import { Input } from '@/components/FormGroup'
 import Button from '@/components/Button'
 import Alert from '@/components/Alert'
+import { InputField } from '@/components/Fields'
 
 const SignUpSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -23,76 +23,63 @@ const SignUpForm = () => {
   const { signUp } = useFirebaseAuth()
   const [signUpFailed, setSignUpFailed] = useState(false)
 
-  const signUpForm = useFormik<{
-    email: string
-    password: string
-    passwordConfirmation: string
-  }>({
-    initialValues: {
-      email: '',
-      password: '',
-      passwordConfirmation: '',
-    },
-    validationSchema: SignUpSchema,
-    onSubmit: async (values) => {
-      setSignUpFailed(false)
-      const signUpResult = await signUp(values.email, values.password)
-
-      if (!signUpResult) {
-        signUpForm.resetForm()
-        setSignUpFailed(true)
-      }
-    },
-  })
-
   return (
     <div className="mt-10 w-full max-w-sm shadow-xl px-6 py-8 rounded-md mx-auto border border-zinc-100">
       <h2 className="text-2xl font-bold mb-1">Sign Up</h2>
       <p className="mb-5">Sign up for free now!</p>
-      <form onSubmit={signUpForm.handleSubmit}>
-        <Input
-          label="Email"
-          error={!!(signUpForm.errors.email && signUpForm.touched.email)}
-          errorMsg={signUpForm.errors.email}
-          type="text"
-          id="email"
-          name="email"
-          placeholder="Enter email"
-          onChange={signUpForm.handleChange}
-          value={signUpForm.values.email}
-          autoComplete="email"
-        />
-        <Input
-          label="Password"
-          error={!!(signUpForm.errors.password && signUpForm.touched.password)}
-          errorMsg={signUpForm.errors.password}
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Enter password"
-          onChange={signUpForm.handleChange}
-          value={signUpForm.values.password}
-          autoComplete="new-password"
-        />
-        <Input
-          label="Confirm Password"
-          error={
-            !!(
-              signUpForm.errors.passwordConfirmation &&
-              signUpForm.touched.passwordConfirmation
-            )
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+          passwordConfirmation: '',
+        }}
+        onSubmit={async (values, actions) => {
+          setSignUpFailed(false)
+          const signUpResult = await signUp(values.email, values.password)
+
+          if (!signUpResult) {
+            actions.resetForm()
+            setSignUpFailed(true)
           }
-          errorMsg={signUpForm.errors.passwordConfirmation}
-          type="password"
-          id="passwordConfirmation"
-          name="passwordConfirmation"
-          placeholder="Confirm password"
-          onChange={signUpForm.handleChange}
-          value={signUpForm.values.passwordConfirmation}
-          autoComplete="new-password"
-        />
-        <Button type="submit">Sign up now!</Button>
-      </form>
+        }}
+        validationSchema={SignUpSchema}
+      >
+        {({ handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
+            <Field
+              label="Email"
+              name="email"
+              type="text"
+              id="email"
+              placeholder="Enter email"
+              className="mb-4"
+              autoComplete="email"
+              component={InputField}
+            />
+            <Field
+              label="Password"
+              name="password"
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              autoComplete="new-password"
+              className="mb-4"
+              component={InputField}
+            />
+            <Field
+              label="Confirm Password"
+              name="passwordConfirmation"
+              type="password"
+              id="passwordConfirmation"
+              placeholder="Confirm password"
+              autoComplete="new-password"
+              className="mb-4"
+              component={InputField}
+            />
+            <Button type="submit">Sign up now!</Button>
+          </form>
+        )}
+      </Formik>
       {signUpFailed && <Alert message="Signup failed" />}
     </div>
   )

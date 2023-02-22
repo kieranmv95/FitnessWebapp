@@ -7,7 +7,7 @@ export type InputProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
   value: string
   type: string
-  id?: string
+  id: string
   name: string
   placeholder?: string
   autoComplete?: string

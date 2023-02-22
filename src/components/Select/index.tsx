@@ -6,7 +6,7 @@ export type SelectProps = {
   error?: boolean
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void
   value: string
-  id?: string
+  id: string
   name: string
   children: React.ReactNode
 }

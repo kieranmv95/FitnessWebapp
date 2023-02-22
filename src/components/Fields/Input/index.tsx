@@ -2,7 +2,7 @@ import React from 'react'
 import Input from '@/components/Input'
 
 type InputFieldProps = {
-  id?: string
+  id: string
   label?: string
   className?: string
   inputClassName?: string
@@ -38,6 +38,7 @@ const InputField = ({
       </label>
     )}
     <Input
+      id={id}
       className={inputClassName}
       {...field}
       {...props}
