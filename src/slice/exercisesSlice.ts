@@ -4,11 +4,11 @@ export type ICategory =
   | 'Barbell'
   | 'Dumbbell'
   | 'Bodyweight'
+  | 'Assisted Bodyweight'
   | 'Cardio'
   | 'Cable'
   | 'Machine'
   | 'Kettlebell'
-  | 'Duration'
   | 'Reps'
 
 export type IMuscleGroup =
