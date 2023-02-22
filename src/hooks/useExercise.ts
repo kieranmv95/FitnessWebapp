@@ -44,6 +44,18 @@ const exercisesData: IExercise[] = [
     category: 'Barbell',
   },
   {
+    id: '0987t6rdtxc23',
+    name: 'Assisted Pullup',
+    muscleGroup: 'Back',
+    category: 'Assisted Bodyweight',
+  },
+  {
+    id: '0987t6rdtxc232',
+    name: 'Pullup',
+    muscleGroup: 'Back',
+    category: 'Bodyweight',
+  },
+  {
     id: '90876tqgfwhdlo',
     name: 'Deadlift (Dumbbell)',
     muscleGroup: 'Legs',

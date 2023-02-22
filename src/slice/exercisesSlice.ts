@@ -9,7 +9,6 @@ export type ICategory =
   | 'Cable'
   | 'Machine'
   | 'Kettlebell'
-  | 'Duration'
   | 'Reps'
 
 export type IMuscleGroup =

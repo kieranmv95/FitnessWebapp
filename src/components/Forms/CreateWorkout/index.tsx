@@ -1,12 +1,16 @@
 import Button from '@/components/Button'
 import { Field, FieldArray, Formik } from 'formik'
-import AddExerciseModal from '@/components/AddExerciseModal'
 import { useState } from 'react'
 import { IExercise } from '@/slice/exercisesSlice'
 import { InputField, SelectField } from '@/components/Fields'
-import { TrashIcon } from '@heroicons/react/24/solid'
+import {
+  Reps,
+  WeightAndReps,
+  DistanceAndTime,
+} from '@/components/Forms/CreateWorkout/SetForms'
+import AddExerciseModal from '@/components/AddExerciseModal'
 
-type IWorkoutExercise = IExercise & {
+export type IWorkoutExercise = IExercise & {
   sets: any[]
 }
 
@@ -24,16 +28,101 @@ const CreateWorkout = () => {
     exercises: [],
   })
 
-  const addExercises = (values: IAddWorkoutFormState, e: IExercise[]) => {
-    const exerciseSets = e.map((ex) => ({
-      ...ex,
-      sets: [
-        {
+  const getSetShape = (category: string) => {
+    switch (category) {
+      case 'Dumbbell':
+      case 'Barbell':
+      case 'Cable':
+      case 'Machine':
+      case 'Kettlebell':
+        return {
           weight: '',
           reps: '',
-        },
-      ],
-    }))
+        }
+      case 'Reps':
+        return {
+          reps: '',
+        }
+      case 'Cardio':
+        return {
+          distance: '',
+          time: {
+            hh: '',
+            mm: '',
+            ss: '',
+          },
+        }
+      default:
+        return {
+          weight: '',
+          reps: '',
+        }
+    }
+  }
+
+  const getSetHeader = (category: string) => {
+    switch (category) {
+      case 'Dumbbell':
+      case 'Barbell':
+      case 'Cable':
+      case 'Machine':
+      case 'Kettlebell':
+        return (
+          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
+            <p>Set</p>
+            <p>KG</p>
+            <p>Reps</p>
+          </div>
+        )
+      case 'Bodyweight':
+        return (
+          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
+            <p>Set</p>
+            <p>KG (+)</p>
+            <p>Reps</p>
+          </div>
+        )
+      case 'Assisted Bodyweight':
+        return (
+          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
+            <p>Set</p>
+            <p>KG (-)</p>
+            <p>Reps</p>
+          </div>
+        )
+      case 'Reps':
+        return (
+          <div className="grid grid-cols-[2.125rem_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
+            <p>Set</p>
+            <p>Reps</p>
+          </div>
+        )
+      case 'Cardio':
+        return (
+          <div className="grid grid-cols-[2.125rem_1fr_9rem_2.125rem] md:grid-cols-[2.125rem_1fr_15rem_2.125rem] gap-1 mb-1 text-xs font-bold">
+            <p>Set</p>
+            <p>Km</p>
+            <p>Time</p>
+          </div>
+        )
+      default:
+        return (
+          <div className="grid grid-cols-[2.125rem_1fr_1fr_2.125rem] gap-1 mb-1 text-xs font-bold">
+            <p>Set</p>
+            <p>KG</p>
+            <p>Reps</p>
+          </div>
+        )
+    }
+  }
+
+  const addExercises = (values: IAddWorkoutFormState, e: IExercise[]) => {
+    const exerciseSets = e.map((ex) => {
+      return {
+        ...ex,
+        sets: [getSetShape(ex.category)],
+      }
+    })
 
     setFormState({
       ...values,
@@ -87,61 +176,57 @@ const CreateWorkout = () => {
                           <p className="block uppercase tracking-wide text-zinc-800 text-xs md:text-sm font-bold mb-1">
                             {ex.name}
                           </p>
-                          <FieldArray
-                            name={`exercises.${index}.sets`}
-                            render={(setsHelpers) => (
-                              <div className="p-4 border rounded border-zinc-400 mb-4 bg-gray-100">
-                                {ex.sets.map((set, setIndex) => (
-                                  <div
-                                    key={setIndex}
-                                    className="grid grid-cols-[auto_1fr_1fr_auto] gap-1 mb-1"
+                          <div className="p-4 border rounded border-zinc-400 mb-4 bg-gray-100">
+                            {getSetHeader(ex.category)}
+                            <FieldArray
+                              name={`exercises.${index}.sets`}
+                              render={(setsHelpers) => (
+                                <>
+                                  {ex.sets.map((set, setIndex) => {
+                                    const exerciseProps = {
+                                      key: setIndex.toString(),
+                                      index,
+                                      setIndex,
+                                      exercisesHelpers,
+                                      ex,
+                                      setsHelpers,
+                                    }
+                                    switch (ex.category) {
+                                      case 'Dumbbell':
+                                      case 'Barbell':
+                                      case 'Cable':
+                                      case 'Machine':
+                                      case 'Kettlebell':
+                                      case 'Bodyweight':
+                                      case 'Assisted Bodyweight':
+                                        return (
+                                          <WeightAndReps {...exerciseProps} />
+                                        )
+                                      case 'Reps':
+                                        return <Reps {...exerciseProps} />
+                                      case 'Cardio':
+                                        return (
+                                          <DistanceAndTime {...exerciseProps} />
+                                        )
+                                      default:
+                                        return (
+                                          <WeightAndReps {...exerciseProps} />
+                                        )
+                                    }
+                                  })}
+                                  <Button
+                                    theme="secondary"
+                                    onClick={() =>
+                                      setsHelpers.push(getSetShape(ex.category))
+                                    }
+                                    className="w-full mt-2"
                                   >
-                                    <p className="text-zinc-600 py-1 px-2 md:py-2 md:px-3 rounded inline-block font-bold">
-                                      {setIndex + 1}
-                                    </p>
-                                    <Field
-                                      type="text"
-                                      name={`exercises.${index}.sets.${setIndex}.weight`}
-                                      placeholder="weight"
-                                      inputClassName="bg-white"
-                                      component={InputField}
-                                    />
-                                    <Field
-                                      type="text"
-                                      name={`exercises.${index}.sets.${setIndex}.reps`}
-                                      placeholder="reps"
-                                      inputClassName="bg-white"
-                                      component={InputField}
-                                    />
-                                    <div
-                                      className="text-red-500 border border-red-500 rounded bg-red-100 flex items-center px-2"
-                                      onClick={() => {
-                                        if (ex.sets.length === 1) {
-                                          exercisesHelpers.remove(index)
-                                        } else {
-                                          setsHelpers.remove(setIndex)
-                                        }
-                                      }}
-                                    >
-                                      <TrashIcon className="w-4 h-4" />
-                                    </div>
-                                  </div>
-                                ))}
-                                <Button
-                                  theme="secondary"
-                                  onClick={() =>
-                                    setsHelpers.push({
-                                      weight: '',
-                                      reps: '',
-                                    })
-                                  }
-                                  className="w-full mt-2"
-                                >
-                                  Add Set
-                                </Button>
-                              </div>
-                            )}
-                          />
+                                    Add Set
+                                  </Button>
+                                </>
+                              )}
+                            />
+                          </div>
                         </div>
                       ))}
                   </>
