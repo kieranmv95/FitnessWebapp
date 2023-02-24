@@ -5,109 +5,22 @@ type IWorkoutExercise = IExercise & {
   sets: any[]
 }
 
-type IWorkout = {
+export type IWorkout = {
   name: string
   folder: string
   exercises: IWorkoutExercise[]
 }
 
-const testWorkout: IWorkout = {
-  name: 'Test Workout',
-  folder: 'hypertrophy',
-  exercises: [
-    {
-      id: '0987t6rdtxc23',
-      name: 'Assisted Pullup',
-      muscleGroup: 'Back',
-      category: 'Assisted Bodyweight',
-      sets: [
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-      ],
-    },
-    {
-      id: 'u2398321gbh',
-      name: 'Cycling',
-      muscleGroup: 'Legs',
-      category: 'Cardio',
-      sets: [
-        {
-          distance: '',
-          time: {
-            hh: '',
-            mm: '',
-            ss: '',
-          },
-        },
-        {
-          distance: '',
-          time: {
-            hh: '',
-            mm: '',
-            ss: '',
-          },
-        },
-      ],
-    },
-    {
-      id: '0987t6rdtxc',
-      name: 'Deadlift (Barbell)',
-      muscleGroup: 'Legs',
-      category: 'Barbell',
-      sets: [
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-        {
-          weight: '',
-          reps: '',
-        },
-      ],
-    },
-  ],
-}
-
 type IWorkoutState = {
   loading: boolean
   error: string
-  workout: IWorkout | null
+  data: IWorkout | null
 }
 
 const initialState: IWorkoutState = {
   loading: false,
   error: '',
-  workout: null,
+  data: null,
 }
 
 const workoutSlice = createSlice({
@@ -117,22 +30,22 @@ const workoutSlice = createSlice({
     fetchWorkout: (_) => ({
       loading: true,
       error: '',
-      workout: null,
+      data: null,
     }),
     fetchWorkoutSuccess: (_, action: PayloadAction<IWorkout>) => ({
       loading: false,
       error: '',
-      workout: action.payload,
+      data: action.payload,
     }),
     fetchWorkoutFailure: (_, action: PayloadAction<string>) => ({
       loading: false,
       error: action.payload,
-      workout: null,
+      data: null,
     }),
     clearWorkout: (_) => ({
       loading: false,
       error: '',
-      workout: null,
+      data: null,
     }),
   },
 })
