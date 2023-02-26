@@ -3,10 +3,12 @@ import { fireEvent, render } from '@testing-library/react'
 import { IExercise } from '@/slice/exercisesSlice'
 
 const testExercise: IExercise = {
-  id: 'ekfhwef',
+  id: '1',
   name: 'Bench Press',
   muscleGroup: 'Chest',
-  category: 'Barbell',
+  equipment: 'Barbell',
+  type: 'Strength',
+  form: 'WeightAndReps',
 }
 
 describe('<ExerciseCard />', () => {

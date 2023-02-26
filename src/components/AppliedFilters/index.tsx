@@ -9,7 +9,7 @@ type AppliedFiltersProps = {
 
 const AppliedFilters = ({ results }: AppliedFiltersProps) => {
   const dispatch = useAppDispatch()
-  const { textSearch, category, muscleGroup } = useAppSelector(
+  const { textSearch, equipment, muscleGroup, type } = useAppSelector(
     (state) => state.filters,
   )
 
@@ -31,12 +31,12 @@ const AppliedFilters = ({ results }: AppliedFiltersProps) => {
             />
           </div>
         )}
-        {category && (
+        {equipment && (
           <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto] gap-1">
-            {category}{' '}
+            {equipment}{' '}
             <XCircleIcon
               className="fill-current h-5 w-5 cursor-pointer"
-              onClick={() => dispatch(clearNamedFilter('category'))}
+              onClick={() => dispatch(clearNamedFilter('equipment'))}
               aria-label="category-clear"
             />
           </div>
@@ -47,6 +47,16 @@ const AppliedFilters = ({ results }: AppliedFiltersProps) => {
             <XCircleIcon
               className="fill-current h-5 w-5 cursor-pointer"
               onClick={() => dispatch(clearNamedFilter('muscleGroup'))}
+              aria-label="muscleGroup-clear"
+            />
+          </div>
+        )}
+        {type && (
+          <div className="bg-blue-500 px-3 py-1 rounded-full inline-grid grid-cols-[auto_auto] gap-1">
+            {type}{' '}
+            <XCircleIcon
+              className="fill-current h-5 w-5 cursor-pointer"
+              onClick={() => dispatch(clearNamedFilter('type'))}
               aria-label="muscleGroup-clear"
             />
           </div>

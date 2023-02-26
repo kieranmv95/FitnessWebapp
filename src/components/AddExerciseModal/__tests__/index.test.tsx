@@ -77,10 +77,12 @@ describe('<AddExerciseModal />', () => {
             loading: false,
             data: [
               {
-                id: '98765',
+                id: '1',
                 name: 'Bench Press',
                 muscleGroup: 'Chest',
-                category: 'Barbell',
+                equipment: 'Barbell',
+                type: 'Strength',
+                form: 'WeightAndReps',
               },
             ],
             error: '',

@@ -1,40 +1,27 @@
 import cx from 'classnames'
+import { IEquipment, IFormType } from '@/slice/exercisesSlice'
 
-export const getSetHeader = (category: string) => {
+export const getSetHeader = (equipment: IEquipment, form: IFormType) => {
   const sharedClass = 'grid gap-1 mb-1 text-xs font-bold'
+  const getString = () => {
+    switch (equipment) {
+      case 'Bodyweight':
+        return 'KG (+)'
+      case 'Assisted Bodyweight':
+        return 'KG (-)'
+      default:
+        return 'KG'
+    }
+  }
 
-  switch (category) {
-    case 'Dumbbell':
-    case 'Barbell':
-    case 'Cable':
-    case 'Machine':
-    case 'Kettlebell':
+  switch (form) {
+    case 'WeightAndReps':
       return (
         <div
           className={cx(sharedClass, 'grid-cols-[2.125rem_1fr_1fr_2.125rem]')}
         >
           <p>Set</p>
-          <p>KG</p>
-          <p>Reps</p>
-        </div>
-      )
-    case 'Bodyweight':
-      return (
-        <div
-          className={cx(sharedClass, 'grid-cols-[2.125rem_1fr_1fr_2.125rem]')}
-        >
-          <p>Set</p>
-          <p>KG (+)</p>
-          <p>Reps</p>
-        </div>
-      )
-    case 'Assisted Bodyweight':
-      return (
-        <div
-          className={cx(sharedClass, 'grid-cols-[2.125rem_1fr_1fr_2.125rem]')}
-        >
-          <p>Set</p>
-          <p>KG (-)</p>
+          <p>{getString()}</p>
           <p>Reps</p>
         </div>
       )
@@ -45,7 +32,7 @@ export const getSetHeader = (category: string) => {
           <p>Reps</p>
         </div>
       )
-    case 'Cardio':
+    case 'DistanceAndTime':
       return (
         <div
           className={cx(
@@ -55,6 +42,18 @@ export const getSetHeader = (category: string) => {
         >
           <p>Set</p>
           <p>Km</p>
+          <p>Time</p>
+        </div>
+      )
+    case 'Time':
+      return (
+        <div
+          className={cx(
+            sharedClass,
+            'grid-cols-[2.125rem_1fr_9rem_2.125rem] md:grid-cols-[2.125rem_1fr_15rem_2.125rem]',
+          )}
+        >
+          <p>Set</p>
           <p>Time</p>
         </div>
       )
@@ -71,13 +70,9 @@ export const getSetHeader = (category: string) => {
   }
 }
 
-export const getSetShape = (category: string) => {
-  switch (category) {
-    case 'Dumbbell':
-    case 'Barbell':
-    case 'Cable':
-    case 'Machine':
-    case 'Kettlebell':
+export const getSetShape = (form: IFormType) => {
+  switch (form) {
+    case 'WeightAndReps':
       return {
         weight: '',
         reps: '',
@@ -86,7 +81,7 @@ export const getSetShape = (category: string) => {
       return {
         reps: '',
       }
-    case 'Cardio':
+    case 'DistanceAndTime':
       return {
         distance: '',
         time: {
@@ -94,6 +89,12 @@ export const getSetShape = (category: string) => {
           mm: '',
           ss: '',
         },
+      }
+    case 'Time':
+      return {
+        hh: '',
+        mm: '',
+        ss: '',
       }
     default:
       return {
@@ -103,20 +104,17 @@ export const getSetShape = (category: string) => {
   }
 }
 
-export const getSetComponent = (category: string) => {
-  switch (category) {
-    case 'Dumbbell':
-    case 'Barbell':
-    case 'Cable':
-    case 'Machine':
-    case 'Kettlebell':
-    case 'Bodyweight':
-    case 'Assisted Bodyweight':
+export const getSetComponent = (form: IFormType) => {
+  switch (form) {
+    case 'WeightAndReps':
       return 'WeightAndReps'
     case 'Reps':
       return 'Reps'
-    case 'Cardio':
+    case 'DistanceAndTime':
       return 'DistanceAndTime'
+    // TODO: Create time component
+    // case 'Time':
+    //   return 'Time'
     default:
       return 'WeightAndReps'
   }

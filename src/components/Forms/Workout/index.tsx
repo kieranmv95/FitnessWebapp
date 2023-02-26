@@ -1,6 +1,6 @@
 import Button from '@/components/Button'
 import { Field, FieldArray, Formik } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IExercise } from '@/slice/exercisesSlice'
 import { InputField, SelectField } from '@/components/Fields'
 import * as SetForms from '@/components/Forms/CreateWorkout/SetForms'
@@ -37,11 +37,15 @@ const Workout = ({ data }: WorkoutProps) => {
   const [open, setOpen] = useState(false)
   const [formState, setFormState] = useState<IAddWorkoutFormState>(data)
 
+  useEffect(() => {
+    // ALTER THE SHAPE OF THE EXERCISES TO ADD CHECKBOXES TO ALL THE SETS
+  }, [])
+
   const addExercises = (values: IAddWorkoutFormState, e: IExercise[]) => {
     const exerciseSets = e.map((ex) => {
       return {
         ...ex,
-        sets: [getSetShape(ex.category)],
+        sets: [getSetShape(ex.form)],
       }
     })
 
@@ -75,12 +79,12 @@ const Workout = ({ data }: WorkoutProps) => {
                   <>
                     {values.exercises.length > 0 &&
                       values.exercises.map((ex, index) => (
-                        <div key={ex.id}>
+                        <div key={index}>
                           <p className="block uppercase tracking-wide text-zinc-800 text-xs md:text-sm font-bold mb-1">
                             {ex.name}
                           </p>
                           <div className="p-4 border rounded border-zinc-400 mb-4 bg-gray-100">
-                            {getSetHeader(ex.category)}
+                            {getSetHeader(ex.equipment, ex.form)}
                             <FieldArray
                               name={`exercises.${index}.sets`}
                               render={(setsHelpers) => (
@@ -95,7 +99,7 @@ const Workout = ({ data }: WorkoutProps) => {
                                     }
 
                                     const Component =
-                                      SetForms[getSetComponent(ex.category)]
+                                      SetForms[getSetComponent(ex.form)]
 
                                     return (
                                       <Component
@@ -107,7 +111,7 @@ const Workout = ({ data }: WorkoutProps) => {
                                   <Button
                                     theme="secondary"
                                     onClick={() =>
-                                      setsHelpers.push(getSetShape(ex.category))
+                                      setsHelpers.push(getSetShape(ex.form))
                                     }
                                     className="w-full mt-2"
                                   >
@@ -126,7 +130,7 @@ const Workout = ({ data }: WorkoutProps) => {
               <div className="grid grid-cols-2 gap-2">
                 <Button onClick={() => setOpen(true)}>Add Exercises</Button>
 
-                <Button type="submit">Create Workout</Button>
+                <Button type="submit">Finish Workout</Button>
               </div>
             </form>
             <AddExerciseModal

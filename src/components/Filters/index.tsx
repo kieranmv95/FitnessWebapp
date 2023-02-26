@@ -4,8 +4,9 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
 import {
   clearFilters,
   updateTextSearch,
-  updateCategory,
+  updateEquipment,
   updateMuscleGroup,
+  updateType,
 } from '@/slice/filterSlice'
 import { Input, Select } from '@/components/FormGroup'
 import Button from '@/components/Button'
@@ -20,7 +21,7 @@ const Filters = ({ removeBorder, removeSticky }: FilterProps) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const { textSearch, category, muscleGroup } = useAppSelector(
+  const { textSearch, equipment, muscleGroup, type } = useAppSelector(
     (state) => state.filters,
   )
 
@@ -70,25 +71,30 @@ const Filters = ({ removeBorder, removeSticky }: FilterProps) => {
             name="filterText"
             placeholder="Search"
           />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-3">
             <div>
               <Select
-                label="Category"
-                onChange={(e) => dispatch(updateCategory(e.target.value))}
-                value={category}
-                id="category"
-                name="category"
+                label="Equipment"
+                onChange={(e) => dispatch(updateEquipment(e.target.value))}
+                value={equipment}
+                id="equipment"
+                name="equipment"
               >
                 <option value="">All</option>
                 <option value="Barbell">Barbell</option>
                 <option value="Dumbbell">Dumbbell</option>
                 <option value="Bodyweight">Bodyweight</option>
+                <option value="Assisted Bodyweight">Assisted Bodyweight</option>
                 <option value="Cardio">Cardio</option>
                 <option value="Cable">Cable</option>
                 <option value="Machine">Machine</option>
                 <option value="Kettlebell">Kettlebell</option>
-                <option value="Duration">Duration</option>
-                <option value="Reps">Reps</option>
+                <option value="Ball">Ball</option>
+                <option value="Battle Rope">Battle Rope</option>
+                <option value="Skipping Rope">Skipping Rope</option>
+                <option value="Band">Band</option>
+                <option value="Smith Machine">Smith Machine</option>
+                <option value="Bicycle">Bicycle</option>
               </Select>
             </div>
             <div>
@@ -100,18 +106,41 @@ const Filters = ({ removeBorder, removeSticky }: FilterProps) => {
                 name="muscleGroup"
               >
                 <option value="">All</option>
-                <option value="Arms">Arms</option>
-                <option value="Back">Back</option>
                 <option value="Chest">Chest</option>
-                <option value="Core">Core</option>
-                <option value="Legs">Legs</option>
+                <option value="Forearms">Forearms</option>
+                <option value="Lats">Lats</option>
+                <option value="Middle Back">Middle Back</option>
+                <option value="Lower Back">Lower Back</option>
+                <option value="Neck">Neck</option>
+                <option value="Quadriceps">Quadriceps</option>
+                <option value="Hamstrings">Hamstrings</option>
+                <option value="Calves">Calves</option>
+                <option value="Triceps">Triceps</option>
+                <option value="Traps">Traps</option>
                 <option value="Shoulders">Shoulders</option>
-                <option value="Olympic">Olympic</option>
+                <option value="Abdominals">Abdominals</option>
+                <option value="Glutes">Glutes</option>
+                <option value="Biceps">Biceps</option>
+                <option value="Adductors">Adductors</option>
+                <option value="Abductors">Abductors</option>
                 <option value="Full Body">Full Body</option>
               </Select>
             </div>
+            <div>
+              <Select
+                label="Type"
+                onChange={(e) => dispatch(updateType(e.target.value))}
+                value={type}
+                id="type"
+                name="type"
+              >
+                <option value="">All</option>
+                <option value="Strength">Strength</option>
+                <option value="Cardio">Cardio</option>
+              </Select>
+            </div>
           </div>
-          {(textSearch || muscleGroup || category) && (
+          {(textSearch || muscleGroup || equipment) && (
             <Button onClick={() => dispatch(clearFilters())}>
               Clear Filters
             </Button>

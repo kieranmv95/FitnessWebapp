@@ -27,7 +27,8 @@ describe('<AppliedFilters />', () => {
         filters: {
           textSearch: 'test search',
           muscleGroup: 'Chest',
-          category: 'Barbell',
+          equipment: 'Barbell',
+          type: 'Strength',
         },
       },
     })
@@ -45,7 +46,8 @@ describe('<AppliedFilters />', () => {
           filters: {
             textSearch: 'test search',
             muscleGroup: 'Chest',
-            category: 'Barbell',
+            type: 'Strength',
+            equipment: 'Barbell',
           },
         },
       },

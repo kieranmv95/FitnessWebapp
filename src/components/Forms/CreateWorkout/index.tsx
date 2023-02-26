@@ -40,7 +40,7 @@ const CreateWorkout = () => {
     const exerciseSets = e.map((ex) => {
       return {
         ...ex,
-        sets: [getSetShape(ex.category)],
+        sets: [getSetShape(ex.form)],
       }
     })
 
@@ -98,7 +98,7 @@ const CreateWorkout = () => {
                             {ex.name}
                           </p>
                           <div className="p-4 border rounded border-zinc-400 mb-4 bg-gray-100">
-                            {getSetHeader(ex.category)}
+                            {getSetHeader(ex.equipment, ex.form)}
                             <FieldArray
                               name={`exercises.${index}.sets`}
                               render={(setsHelpers) => (
@@ -113,7 +113,7 @@ const CreateWorkout = () => {
                                     }
 
                                     const Component =
-                                      SetForms[getSetComponent(ex.category)]
+                                      SetForms[getSetComponent(ex.form)]
 
                                     return (
                                       <Component
@@ -125,7 +125,7 @@ const CreateWorkout = () => {
                                   <Button
                                     theme="secondary"
                                     onClick={() =>
-                                      setsHelpers.push(getSetShape(ex.category))
+                                      setsHelpers.push(getSetShape(ex.form))
                                     }
                                     className="w-full mt-2"
                                   >

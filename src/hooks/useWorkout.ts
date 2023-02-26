@@ -12,8 +12,10 @@ const testWorkout: IWorkout = {
     {
       id: '0987t6rdtxc23',
       name: 'Assisted Pullup',
-      muscleGroup: 'Back',
-      category: 'Assisted Bodyweight',
+      muscleGroup: 'Lats',
+      equipment: 'Assisted Bodyweight',
+      type: 'Strength',
+      form: 'WeightAndReps',
       sets: [
         {
           weight: '',
@@ -40,8 +42,10 @@ const testWorkout: IWorkout = {
     {
       id: 'u2398321gbh',
       name: 'Cycling',
-      muscleGroup: 'Legs',
-      category: 'Cardio',
+      muscleGroup: 'Quadriceps',
+      equipment: 'Machine',
+      type: 'Cardio',
+      form: 'DistanceAndTime',
       sets: [
         {
           distance: '',
@@ -64,8 +68,10 @@ const testWorkout: IWorkout = {
     {
       id: '0987t6rdtxc',
       name: 'Deadlift (Barbell)',
-      muscleGroup: 'Legs',
-      category: 'Barbell',
+      muscleGroup: 'Quadriceps',
+      equipment: 'Barbell',
+      type: 'Strength',
+      form: 'WeightAndReps',
       sets: [
         {
           weight: '',
