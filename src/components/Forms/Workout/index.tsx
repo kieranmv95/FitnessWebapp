@@ -1,6 +1,6 @@
 import Button from '@/components/Button'
 import { Field, FieldArray, Formik } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IExercise } from '@/slice/exercisesSlice'
 import { InputField, SelectField } from '@/components/Fields'
 import * as SetForms from '@/components/Forms/CreateWorkout/SetForms'
@@ -11,6 +11,7 @@ import {
   getSetShape,
   getSetComponent,
 } from '@/components/Forms/CreateWorkout/helpers'
+import { IWorkout } from '@/slice/workoutSlice'
 
 export type IWorkoutExercise = IExercise & {
   sets: any[]
@@ -28,13 +29,17 @@ const validationSchema = Yup.object().shape({
   exercises: Yup.array(),
 })
 
-const CreateWorkout = () => {
+type WorkoutProps = {
+  data: IWorkout
+}
+
+const Workout = ({ data }: WorkoutProps) => {
   const [open, setOpen] = useState(false)
-  const [formState, setFormState] = useState<IAddWorkoutFormState>({
-    name: '',
-    folder: 'none',
-    exercises: [],
-  })
+  const [formState, setFormState] = useState<IAddWorkoutFormState>(data)
+
+  useEffect(() => {
+    // ALTER THE SHAPE OF THE EXERCISES TO ADD CHECKBOXES TO ALL THE SETS
+  }, [])
 
   const addExercises = (values: IAddWorkoutFormState, e: IExercise[]) => {
     const exerciseSets = e.map((ex) => {
@@ -52,8 +57,6 @@ const CreateWorkout = () => {
 
   return (
     <div className="text-zinc-800 p-6">
-      <h1 className="font-semibold text-3xl mb-2">Create a new workout</h1>
-
       <Formik
         initialValues={formState}
         enableReinitialize={true}
@@ -65,26 +68,9 @@ const CreateWorkout = () => {
         {({ values, handleChange, errors, touched, handleSubmit }) => (
           <>
             <form onSubmit={handleSubmit}>
-              <div className="md:grid md:grid-cols-2 gap-3">
-                <Field
-                  label="Workout Name"
-                  id="name"
-                  type="text"
-                  name="name"
-                  placeholder="Enter workout name"
-                  component={InputField}
-                  className="mb-4"
-                />
-
-                <Field
-                  label="Folder"
-                  className="mb-4"
-                  name="folder"
-                  component={SelectField}
-                >
-                  <option value="none">(No Folder)</option>
-                  <option value="hypertrophy">Hypertrophy</option>
-                </Field>
+              <div className="mb-4">
+                <h1 className="text-2xl font-bold">{values.name}</h1>
+                <p>{values.folder}</p>
               </div>
 
               <FieldArray
@@ -93,7 +79,7 @@ const CreateWorkout = () => {
                   <>
                     {values.exercises.length > 0 &&
                       values.exercises.map((ex, index) => (
-                        <div key={ex.id}>
+                        <div key={index}>
                           <p className="block uppercase tracking-wide text-zinc-800 text-xs md:text-sm font-bold mb-1">
                             {ex.name}
                           </p>
@@ -144,7 +130,7 @@ const CreateWorkout = () => {
               <div className="grid grid-cols-2 gap-2">
                 <Button onClick={() => setOpen(true)}>Add Exercises</Button>
 
-                <Button type="submit">Create Workout</Button>
+                <Button type="submit">Finish Workout</Button>
               </div>
             </form>
             <AddExerciseModal
@@ -159,4 +145,4 @@ const CreateWorkout = () => {
   )
 }
 
-export default CreateWorkout
+export default Workout

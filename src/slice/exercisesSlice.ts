@@ -1,32 +1,51 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export type ICategory =
+export type IFormType = 'Time' | 'DistanceAndTime' | 'Reps' | 'WeightAndReps'
+
+export type IEquipment =
   | 'Barbell'
   | 'Dumbbell'
   | 'Bodyweight'
   | 'Assisted Bodyweight'
-  | 'Cardio'
   | 'Cable'
   | 'Machine'
   | 'Kettlebell'
-  | 'Reps'
+  | 'Ball'
+  | 'Battle Rope'
+  | 'Skipping Rope'
+  | 'Band'
+  | 'Smith Machine'
 
+// New form, time only
 export type IMuscleGroup =
-  | 'Arms'
-  | 'Back'
   | 'Chest'
-  | 'Core'
-  | 'Legs'
+  | 'Forearms'
+  | 'Lats'
+  | 'Middle Back'
+  | 'Lower Back'
+  | 'Neck'
+  | 'Quadriceps'
+  | 'Hamstrings'
+  | 'Calves'
+  | 'Triceps'
+  | 'Traps'
   | 'Shoulders'
-  | 'Olympic'
+  | 'Abdominals'
+  | 'Glutes'
+  | 'Biceps'
+  | 'Adductors'
+  | 'Abductors'
   | 'Full Body'
-  | 'Cardio'
+
+export type IExerciseType = 'Strength' | 'Cardio'
 
 export type IExercise = {
   id: string
   name: string
   muscleGroup: IMuscleGroup
-  category: ICategory
+  equipment: IEquipment
+  type: IExerciseType
+  form: IFormType
 }
 
 export type IExerciseState = {

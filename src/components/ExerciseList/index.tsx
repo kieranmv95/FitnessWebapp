@@ -19,7 +19,7 @@ const ExerciseList = ({
   selectedExercises,
 }: ExerciseListProps) => {
   const exerciseState = useExercise()
-  const { textSearch, category, muscleGroup } = useAppSelector(
+  const { textSearch, equipment, muscleGroup, type } = useAppSelector(
     (state) => state.filters,
   )
 
@@ -30,11 +30,12 @@ const ExerciseList = ({
     .filter(
       (exercise) =>
         exercise.name.toLowerCase().includes(textSearch.toLowerCase()) ||
-        exercise.category.toLowerCase().includes(textSearch.toLowerCase()) ||
+        exercise.equipment.toLowerCase().includes(textSearch.toLowerCase()) ||
         exercise.muscleGroup.toLowerCase().includes(textSearch.toLowerCase()),
     )
-    .filter((exercise) => exercise.category.includes(category))
+    .filter((exercise) => exercise.equipment.includes(equipment))
     .filter((exercise) => exercise.muscleGroup.includes(muscleGroup))
+    .filter((exercise) => exercise.type.includes(type))
 
   const groupExercises = (exercises: IExercise[]) => {
     const exerciseList = exercises.reduce((acc, curr) => {

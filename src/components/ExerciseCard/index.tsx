@@ -26,7 +26,7 @@ const ExerciseCard = ({
         {exercise.muscleGroup}
       </p>
       <p className="text-xs md:text-sm">
-        <span className="font-semibold">Category:</span> {exercise.category}
+        <span className="font-semibold">Category:</span> {exercise.equipment}
       </p>
     </div>
   </div>

@@ -2,14 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type IFilterState = {
   textSearch: string
-  category: string
+  equipment: string
   muscleGroup: string
+  type: string
 }
 
 const initialState: IFilterState = {
   textSearch: '',
-  category: '',
+  equipment: '',
   muscleGroup: '',
+  type: '',
 }
 
 const filterSlice = createSlice({
@@ -25,13 +27,13 @@ const filterSlice = createSlice({
       ...state,
       textSearch: action.payload,
     }),
+    updateType: (state, action: PayloadAction<string>) => ({
+      ...state,
+      type: action.payload,
+    }),
     updateEquipment: (state, action: PayloadAction<string>) => ({
       ...state,
       equipment: action.payload,
-    }),
-    updateCategory: (state, action: PayloadAction<string>) => ({
-      ...state,
-      category: action.payload,
     }),
     updateMuscleGroup: (state, action: PayloadAction<string>) => ({
       ...state,
@@ -45,9 +47,10 @@ const { actions, reducer } = filterSlice
 export const {
   clearFilters,
   updateTextSearch,
-  updateCategory,
+  updateEquipment,
   updateMuscleGroup,
   clearNamedFilter,
+  updateType,
 } = actions
 
 export default reducer
