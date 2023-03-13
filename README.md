@@ -28,3 +28,16 @@ We have a few rules for contributing to this repo:
 ## Pages
 
 When creating a new page in the pages directory it must follow the *.page.tsx naming convention. This is due to our collocation of tests and them being mistaken by next builder as pages. See next.config.ts for pattern
+
+## env
+
+create an env local
+
+NEXT_PUBLIC_FIRERBASE_APIKEY=
+NEXT_PUBLIC_FIRERBASE_AUTHDOMAIN=
+NEXT_PUBLIC_FIRERBASE_PROJECTID=
+NEXT_PUBLIC_FIRERBASE_STORAGEBUCKET=
+NEXT_PUBLIC_FIRERBASE_MESSAGINGSENDERID=
+NEXT_PUBLIC_FIRERBASE_APPID=
+NEXT_PUBLIC_FIRERBASE_MEASUREMENTID=
+NEXT_PUBLIC_STRAPI_KEY=

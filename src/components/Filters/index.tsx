@@ -141,7 +141,7 @@ const Filters = ({ removeBorder, removeSticky }: FilterProps) => {
             </div>
           </div>
           {(textSearch || muscleGroup || equipment) && (
-            <Button onClick={() => dispatch(clearFilters())}>
+            <Button onClick={() => dispatch(clearFilters())} className="mt-2">
               Clear Filters
             </Button>
           )}
