@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import { fetchExercises, fetchExercisesSuccess } from '@/slice/exercisesSlice'
+import { fetchExercises } from '@/slice/exercisesSlice'
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { exercisesData } from '../../data/exercises'
 
 const useExercise = () => {
   const dispatch = useAppDispatch()
@@ -10,9 +9,6 @@ const useExercise = () => {
   useEffect(() => {
     if (exercises.data.length === 0) {
       dispatch(fetchExercises())
-      setTimeout(() => {
-        dispatch(fetchExercisesSuccess(exercisesData))
-      }, 1000)
     }
   }, [dispatch, exercises.data.length])
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import ExercisePage from '../exercises.page'
 import { renderWithProviders } from '../../../../test/utils'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import { AUTHED_USER_MOCK } from '../../../../test/testData'
 
 jest.mock('next/router', () => ({
@@ -13,16 +12,16 @@ jest.mock('next/router', () => ({
   }),
 }))
 
-jest.mock('@/hooks/useFirebaseAuth')
-
-describe('<ExercisePage />', () => {
-  beforeEach(() => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
+jest.mock('@/hooks/useFirebaseAuth', () => ({
+  useFirebaseAuth: () => {
+    return {
       user: AUTHED_USER_MOCK,
       logout: jest.fn(),
-    })
-  })
+    }
+  },
+}))
 
+describe('<ExercisePage />', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })

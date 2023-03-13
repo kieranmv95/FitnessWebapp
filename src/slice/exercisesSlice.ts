@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export type IFormType = 'Time' | 'DistanceAndTime' | 'Reps' | 'WeightAndReps'
 
@@ -60,31 +60,48 @@ const initialState: IExerciseState = {
   error: '',
 }
 
+export const fetchExercises = createAsyncThunk(
+  'exercises/fetchExercises',
+  async () => {
+    const response = await fetch(`https://fitness.neofytou.com/api/exercises`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_KEY}`,
+      },
+    })
+    return await response.json()
+  },
+)
+
 const exercisesSlice = createSlice({
   name: 'exercises',
   initialState,
-  reducers: {
-    fetchExercises: (_) => ({
-      loading: true,
-      data: [],
-      error: '',
-    }),
-    fetchExercisesSuccess: (_, action: PayloadAction<IExercise[]>) => ({
-      loading: false,
-      data: action.payload,
-      error: '',
-    }),
-    fetchExercisesFailure: (_, action: PayloadAction<string>) => ({
-      loading: false,
-      data: [],
-      error: action.payload,
-    }),
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchExercises.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(fetchExercises.fulfilled, (state, action) => {
+      state.loading = false
+      state.data = action.payload.data.map((item: any) => ({
+        id: item.id,
+        name: item.attributes.name,
+        muscleGroup: item.attributes.muscleGroup,
+        equipment: item.attributes.equipment,
+        form: item.attributes.form,
+        type: item.attributes.type,
+      }))
+      state.error = ''
+    })
+    builder.addCase(fetchExercises.rejected, (state, action) => {
+      state.loading = false
+      state.data = []
+      state.error = 'failed to load exercises'
+    })
   },
 })
 
-const { actions, reducer } = exercisesSlice
-
-export const { fetchExercises, fetchExercisesSuccess, fetchExercisesFailure } =
-  actions
+const { reducer } = exercisesSlice
 
 export default reducer
