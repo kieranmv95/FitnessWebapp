@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { fetchExercises } from '@/slice/exercisesSlice'
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux'
-import { exercisesData } from '../../data/exercises'
 
 const useExercise = () => {
   const dispatch = useAppDispatch()
