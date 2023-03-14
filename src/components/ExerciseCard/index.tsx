@@ -23,6 +23,7 @@ const ExerciseCard = ({
     <MuscleGroups
       selectedMuscleGroup={[exercise.muscleGroup]}
       className="w-16 md:w-20"
+      unselectedFill={selected ? 'white' : '#A4A6A9'}
     />
     <div>
       <h2 className="text-sm md:text-lg font-semibold mb-2">{exercise.name}</h2>

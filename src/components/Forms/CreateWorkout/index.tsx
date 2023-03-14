@@ -51,7 +51,7 @@ const CreateWorkout = () => {
   }
 
   return (
-    <div className="text-zinc-800 p-6">
+    <div className="text-zinc-800 p-6 m-auto md:w-full md:max-w-[75rem]">
       <h1 className="font-semibold text-3xl mb-2">Create a new workout</h1>
 
       <Formik
@@ -98,11 +98,29 @@ const CreateWorkout = () => {
                             {ex.name}
                           </p>
                           <div className="p-4 border rounded border-zinc-400 mb-4 bg-gray-100">
-                            {getSetHeader(ex.equipment, ex.form)}
                             <FieldArray
                               name={`exercises.${index}.sets`}
                               render={(setsHelpers) => (
                                 <>
+                                  <Button
+                                    theme="primary"
+                                    onClick={() =>
+                                      setsHelpers.push(getSetShape(ex.form))
+                                    }
+                                    className="w-auto mb-2"
+                                  >
+                                    Add Set
+                                  </Button>
+                                  <Button
+                                    theme="danger"
+                                    onClick={() =>
+                                      exercisesHelpers.remove(index)
+                                    }
+                                    className="w-auto ml-2"
+                                  >
+                                    Delete Exercise
+                                  </Button>
+                                  {getSetHeader(ex.equipment, ex.form)}
                                   {ex.sets.map((set, setIndex) => {
                                     const exerciseProps = {
                                       index,
@@ -122,15 +140,6 @@ const CreateWorkout = () => {
                                       />
                                     )
                                   })}
-                                  <Button
-                                    theme="secondary"
-                                    onClick={() =>
-                                      setsHelpers.push(getSetShape(ex.form))
-                                    }
-                                    className="w-full mt-2"
-                                  >
-                                    Add Set
-                                  </Button>
                                 </>
                               )}
                             />
@@ -144,7 +153,9 @@ const CreateWorkout = () => {
               <div className="grid grid-cols-2 gap-2">
                 <Button onClick={() => setOpen(true)}>Add Exercises</Button>
 
-                <Button type="submit">Create Workout</Button>
+                <Button type="submit" theme="success">
+                  Create Workout
+                </Button>
               </div>
             </form>
             <AddExerciseModal

@@ -1,14 +1,16 @@
 type MuscleGroupsProps = {
   selectedMuscleGroup: string[]
   className?: string
+  unselectedFill?: string
 }
 
 const MuscleGroups = ({
   selectedMuscleGroup,
+  unselectedFill = '#A4A6A9',
   className,
 }: MuscleGroupsProps) => {
-  const selectedFill = 'red',
-    unselectedFill = '#A4A6A9'
+  const selectedFill = 'red'
+
   return (
     <svg
       viewBox="0 0 161 157"
