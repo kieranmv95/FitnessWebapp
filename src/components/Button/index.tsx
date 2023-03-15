@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import cx from 'classnames'
 
 type ButtonProps = {
-  theme?: 'primary' | 'secondary'
+  theme?: 'primary' | 'secondary' | 'success' | 'danger'
   className?: string
   type?: 'button' | 'submit' | 'reset'
   children: ReactNode
@@ -22,6 +22,10 @@ const Button = ({
         return 'text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300'
       case 'secondary':
         return 'text-white bg-zinc-800 hover:bg-zinc-900 focus:ring-4 focus:ring-zinc-400 hover:text-whitex'
+      case 'success':
+        return 'text-white bg-emerald-500 hover:bg-emerald-600 focus:ring-4 focus:ring-emerald-300 hover:text-whitex'
+      case 'danger':
+        return 'text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 hover:text-whitex'
       default:
         return 'text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300'
     }
