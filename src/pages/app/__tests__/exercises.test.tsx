@@ -5,20 +5,12 @@ import { AUTHED_USER_MOCK } from '../../../../test/testData'
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
+    push: jest.fn(),
     events: {
       on: jest.fn(),
       off: jest.fn(),
     },
   }),
-}))
-
-jest.mock('@/hooks/useFirebaseAuth', () => ({
-  useFirebaseAuth: () => {
-    return {
-      user: AUTHED_USER_MOCK,
-      logout: jest.fn(),
-    }
-  },
 }))
 
 describe('<ExercisePage />', () => {
@@ -27,7 +19,11 @@ describe('<ExercisePage />', () => {
   })
 
   it('renders without crashing', () => {
-    const { container } = renderWithProviders(<ExercisePage />)
+    const { container } = renderWithProviders(<ExercisePage />, {
+      preloadedState: {
+        auth: AUTHED_USER_MOCK,
+      },
+    })
     expect(container).toBeInTheDocument()
   })
 
@@ -39,6 +35,7 @@ describe('<ExercisePage />', () => {
           data: [],
           error: '',
         },
+        auth: AUTHED_USER_MOCK,
       },
     })
 

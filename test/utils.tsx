@@ -9,6 +9,7 @@ import type { AppStore, RootState } from '../src/store'
 import exercisesReducer from '../src/slice/exercisesSlice'
 import filtersReducer from '../src/slice/filterSlice'
 import workoutReducer from '../src/slice/workoutSlice'
+import authReducer from '../src/slice/authSlice'
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -26,6 +27,7 @@ export function renderWithProviders(
         exercises: exercisesReducer,
         filters: filtersReducer,
         workout: workoutReducer,
+        auth: authReducer,
       },
       preloadedState,
     }),

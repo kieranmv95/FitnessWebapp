@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Bars3Icon } from '@heroicons/react/24/solid'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import cx from 'classnames'
+import useStrapiAuth from '@/hooks/useStrapiAuth'
 
 const Header = () => {
   const router = useRouter()
-  const { user, logout } = useFirebaseAuth()
+  const { loggedIn, logout } = useStrapiAuth()
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Header = () => {
           )}
         >
           <div className="text-sm lg:flex-grow">
-            {user.loggedIn && (
+            {loggedIn && (
               <>
                 <Link
                   href="/app"
@@ -66,7 +66,7 @@ const Header = () => {
           </div>
 
           <div>
-            {user.loggedIn ? (
+            {loggedIn ? (
               <button
                 onClick={() => logout()}
                 className="inline-block text-sm px-4 py-2 leading-none border rounded border-white hover:border-transparent hover:text-zinc-800 hover:bg-zinc-100 mt-4 lg:mt-0"

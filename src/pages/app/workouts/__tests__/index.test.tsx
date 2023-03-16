@@ -1,8 +1,8 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import WorkoutPage from '../index.page'
 import { AUTHED_USER_MOCK } from '../../../../../test/testData'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import { renderWithProviders } from '../../../../../test/utils'
 
 const mockPush = jest.fn()
 
@@ -14,27 +14,26 @@ jest.mock('next/router', () => ({
   },
 }))
 
-jest.mock('@/hooks/useFirebaseAuth')
-
 describe('<WorkoutPage />', () => {
-  beforeEach(() => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: AUTHED_USER_MOCK,
-      logout: jest.fn(),
-    })
-  })
-
   afterEach(() => {
     jest.resetAllMocks()
   })
 
   it('renders without crashing', () => {
-    const { container } = render(<WorkoutPage />)
+    const { container } = renderWithProviders(<WorkoutPage />, {
+      preloadedState: {
+        auth: AUTHED_USER_MOCK,
+      },
+    })
     expect(container).toBeInTheDocument()
   })
 
   it('should redirect to new workout page when button is clicked', () => {
-    const { getByText } = render(<WorkoutPage />)
+    const { getByText } = renderWithProviders(<WorkoutPage />, {
+      preloadedState: {
+        auth: AUTHED_USER_MOCK,
+      },
+    })
     const button = getByText('New Workout')
     fireEvent.click(button)
     expect(mockPush).toHaveBeenCalledWith('/app/workouts/new')
