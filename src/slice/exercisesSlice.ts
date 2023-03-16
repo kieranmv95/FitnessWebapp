@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { API_URL } from '@/constants'
+import { getToken } from '@/helpers/token'
 
 export type IFormType = 'Time' | 'DistanceAndTime' | 'Reps' | 'WeightAndReps'
 
@@ -63,11 +65,11 @@ const initialState: IExerciseState = {
 export const fetchExercises = createAsyncThunk(
   'exercises/fetchExercises',
   async () => {
-    const response = await fetch(`https://fitness.neofytou.com/api/exercises`, {
+    const response = await fetch(`${API_URL}/exercises`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_KEY}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     })
     return await response.json()

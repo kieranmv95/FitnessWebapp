@@ -13,7 +13,6 @@ const customJestConfig = {
   },
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
-  resolver: '<rootDir>/jest.resolver.js',
 }
 
 export default createJestConfig(customJestConfig)

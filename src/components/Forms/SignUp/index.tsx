@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import * as Yup from 'yup'
 import { Field, Formik } from 'formik'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import Button from '@/components/Button'
 import Alert from '@/components/Alert'
 import { InputField } from '@/components/Fields'
+import useStrapiAuth from '@/hooks/useStrapiAuth'
 
 const SignUpSchema = Yup.object().shape({
+  username: Yup.string().required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
     .matches(
@@ -20,7 +21,7 @@ const SignUpSchema = Yup.object().shape({
 })
 
 const SignUpForm = () => {
-  const { signUp } = useFirebaseAuth()
+  const { signUp } = useStrapiAuth()
   const [signUpFailed, setSignUpFailed] = useState(false)
 
   return (
@@ -29,13 +30,18 @@ const SignUpForm = () => {
       <p className="mb-5">Sign up for free now!</p>
       <Formik
         initialValues={{
+          username: '',
           email: '',
           password: '',
           passwordConfirmation: '',
         }}
         onSubmit={async (values, actions) => {
           setSignUpFailed(false)
-          const signUpResult = await signUp(values.email, values.password)
+          const signUpResult = await signUp(
+            values.username,
+            values.email,
+            values.password,
+          )
 
           if (!signUpResult) {
             actions.resetForm()
@@ -46,6 +52,16 @@ const SignUpForm = () => {
       >
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
+            <Field
+              label="Username"
+              name="username"
+              type="text"
+              id="username"
+              placeholder="Enter username"
+              className="mb-4"
+              autoComplete="username"
+              component={InputField}
+            />
             <Field
               label="Email"
               name="email"

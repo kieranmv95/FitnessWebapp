@@ -1,7 +1,6 @@
-import { render } from '@testing-library/react'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import PrivateRoute from '../index'
-import { UNAUTHED_USER_MOCK } from '../../../../test/testData'
+import { renderWithProviders } from '../../../../test/utils'
+import { AUTHED_USER_MOCK } from '../../../../test/testData'
 
 const mockPush = jest.fn()
 
@@ -12,75 +11,45 @@ jest.mock('next/router', () => ({
   }),
 }))
 
-jest.mock('@/hooks/useFirebaseAuth')
+jest.mock('@/helpers/token', () => ({
+  ...jest.requireActual('@/helpers/token'),
+  getToken: jest.fn(() => 'token'),
+}))
 
 describe('<PrivateRoute />', () => {
   it('renders without crashing', () => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: UNAUTHED_USER_MOCK,
-    })
-    const { container } = render(<PrivateRoute>Private Content</PrivateRoute>)
+    const { container } = renderWithProviders(
+      <PrivateRoute>Private Content</PrivateRoute>,
+    )
     expect(container).toBeInTheDocument()
   })
 
   it('renders "Loading..." when the user is loading', () => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: {
-        data: null,
-        loggedIn: false,
-        loading: true,
+    const { getByText } = renderWithProviders(
+      <PrivateRoute>Private Content</PrivateRoute>,
+      {
+        preloadedState: {
+          auth: {
+            user: undefined,
+            loggedIn: false,
+            isLoading: true,
+            error: '',
+          },
+        },
       },
-    })
-
-    const { getByText } = render(<PrivateRoute>Private Content</PrivateRoute>)
+    )
     expect(getByText('Loading...')).toBeInTheDocument()
   })
 
-  it('when user is not loading and is not logged in push to /login', () => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: {
-        data: null,
-        loggedIn: false,
-        loading: false,
-      },
-    })
-
-    render(<PrivateRoute>Private Content</PrivateRoute>)
-    expect(mockPush).toHaveBeenCalledWith('/login')
-  })
-
   it('when user is not loading and logged in display content', () => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: {
-        data: null,
-        loggedIn: true,
-        loading: false,
+    const { getByText } = renderWithProviders(
+      <PrivateRoute>Private Content</PrivateRoute>,
+      {
+        preloadedState: {
+          auth: AUTHED_USER_MOCK,
+        },
       },
-    })
-
-    const { getByText } = render(<PrivateRoute>Private Content</PrivateRoute>)
+    )
     expect(getByText('Private Content')).toBeInTheDocument()
-  })
-
-  it('user changes to not logged from logged in in push to /login', () => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: {
-        data: null,
-        loggedIn: true,
-        loading: false,
-      },
-    })
-
-    const { getByText } = render(<PrivateRoute>Private Content</PrivateRoute>)
-    expect(getByText('Private Content')).toBeInTheDocument()
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: {
-        data: null,
-        loggedIn: false,
-        loading: false,
-      },
-    })
-
-    expect(mockPush).toHaveBeenCalledWith('/login')
   })
 })

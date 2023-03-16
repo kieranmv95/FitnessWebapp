@@ -1,7 +1,7 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import SignupPage from '../signup.page'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
-import { UNAUTHED_USER_MOCK, AUTHED_USER_MOCK } from '../../../test/testData'
+import { AUTHED_USER_MOCK } from '../../../test/testData'
+import { renderWithProviders } from '../../../test/utils'
 
 const mockPush = jest.fn()
 const mockLogin = jest.fn()
@@ -14,34 +14,24 @@ jest.mock('next/router', () => ({
   }),
 }))
 
-jest.mock('@/hooks/useFirebaseAuth')
-
 describe('SignupPage', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
 
   describe('when user is not authenticated', () => {
-    beforeEach(() => {
-      ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-        user: UNAUTHED_USER_MOCK,
-        login: mockLogin,
-        signUp: mockSignUp,
-      })
-    })
-
     it('renders without crashing', () => {
-      const { container } = render(<SignupPage />)
+      const { container } = renderWithProviders(<SignupPage />)
       expect(container).toBeInTheDocument()
     })
 
     it('should render a sign in form by default', () => {
-      const { getByText } = render(<SignupPage />)
+      const { getByText } = renderWithProviders(<SignupPage />)
       expect(getByText('Sign Up')).toBeInTheDocument()
     })
 
     it('should redirect to login page when user clicks signup link', () => {
-      const { getByText } = render(<SignupPage />)
+      const { getByText } = renderWithProviders(<SignupPage />)
 
       const signUpLink = getByText('Login now')
       fireEvent.click(signUpLink)
@@ -51,16 +41,12 @@ describe('SignupPage', () => {
   })
 
   describe('when user is authenticated', () => {
-    beforeEach(() => {
-      ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-        user: AUTHED_USER_MOCK,
-        login: jest.fn(),
-        signUp: jest.fn(),
-      })
-    })
-
     it('should redirect to the /app route when the user is logged in', () => {
-      render(<SignupPage />)
+      renderWithProviders(<SignupPage />, {
+        preloadedState: {
+          auth: AUTHED_USER_MOCK,
+        },
+      })
 
       expect(mockPush).toHaveBeenCalledWith('/app')
     })

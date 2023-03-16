@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import { Signup } from '@/components/Forms'
 import Seo from '@/components/Seo'
+import useStrapiAuth from '@/hooks/useStrapiAuth'
 
 export default function SignUpPage() {
-  const { user } = useFirebaseAuth()
+  const { isLoading, loggedIn } = useStrapiAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!user.loading && user.loggedIn) {
+    if (!isLoading && loggedIn) {
       router.push('/app')
     }
-  }, [user])
+  }, [isLoading, loggedIn])
 
   return (
     <>

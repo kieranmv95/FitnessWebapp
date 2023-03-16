@@ -1,30 +1,29 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import LoginForm from '../index'
-import { UNAUTHED_USER_MOCK } from '../../../../../test/testData'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
+import { renderWithProviders } from '../../../../../test/utils'
 
 const mockLogin = jest.fn()
-jest.mock('@/hooks/useFirebaseAuth')
+
+jest.mock('@/hooks/useStrapiAuth', () => {
+  return jest.fn().mockImplementation(() => ({
+    login: mockLogin,
+  }))
+})
 
 describe('<LoginForm />', () => {
-  beforeEach(() => {
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: UNAUTHED_USER_MOCK,
-      login: mockLogin,
-    })
-  })
-
   it('renders without crashing', () => {
-    const { container } = render(<LoginForm />)
+    const { container } = renderWithProviders(<LoginForm />)
     expect(container).toBeInTheDocument()
   })
 
   it('should call login when the login form is submitted', async () => {
-    const { getByText, getByPlaceholderText } = render(<LoginForm />)
+    const { getByText, getByPlaceholderText } = renderWithProviders(
+      <LoginForm />,
+    )
 
-    const emailInput = getByPlaceholderText('Enter email')
-    fireEvent.change(emailInput, { target: { value: 'test@test.com' } })
+    const usernameInput = getByPlaceholderText('Enter username')
+    fireEvent.change(usernameInput, { target: { value: 'Kieran Venison' } })
 
     const passwordInput = getByPlaceholderText('Enter password')
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
@@ -33,12 +32,12 @@ describe('<LoginForm />', () => {
     fireEvent.click(loginButton)
 
     await waitFor(() => {
-      expect(mockLogin).toHaveBeenCalledWith('test@test.com', 'password123')
+      expect(mockLogin).toHaveBeenCalledWith('Kieran Venison', 'password123')
     })
   })
 
   it('should display errors when login form is submitted incorrectly', async () => {
-    const { getByText, getAllByText } = render(<LoginForm />)
+    const { getByText, getAllByText } = renderWithProviders(<LoginForm />)
 
     const loginButton = getByText('Login now')
     fireEvent.click(loginButton)
@@ -49,16 +48,12 @@ describe('<LoginForm />', () => {
   })
 
   it('should show an error when the login form fails to submit', async () => {
-    const mockFailedLogin = jest.fn(() => false)
-    ;(useFirebaseAuth as jest.Mock).mockReturnValue({
-      user: UNAUTHED_USER_MOCK,
-      login: mockFailedLogin,
-    })
+    const { getByText, getByPlaceholderText } = renderWithProviders(
+      <LoginForm />,
+    )
 
-    const { getByText, getByPlaceholderText } = render(<LoginForm />)
-
-    const emailInput = getByPlaceholderText('Enter email')
-    fireEvent.change(emailInput, { target: { value: 'test@fail.com' } })
+    const usernameInput = getByPlaceholderText('Enter username')
+    fireEvent.change(usernameInput, { target: { value: 'Kieran Venison' } })
 
     const passwordInput = getByPlaceholderText('Enter password')
     fireEvent.change(passwordInput, { target: { value: 'password123' } })

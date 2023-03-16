@@ -1,16 +1,17 @@
-import { IUser } from '@/hooks/useFirebaseAuth'
-import { User } from '@firebase/auth'
+import { IAuthState } from '@/slice/authSlice'
 
-export const AUTHED_USER_MOCK: IUser = {
-  data: {
-    email: 'test@test.com',
-  } as User,
+export const AUTHED_USER_MOCK: IAuthState = {
+  user: {
+    id: 3,
+    username: 'Kieran Venison',
+    email: 'venison@hey.com',
+    provider: 'local',
+    confirmed: true,
+    blocked: false,
+    createdAt: '2023-03-15T13:27:03.950Z',
+    updatedAt: '2023-03-15T13:27:03.950Z',
+  },
   loggedIn: true,
-  loading: false,
-}
-
-export const UNAUTHED_USER_MOCK: IUser = {
-  data: null,
-  loggedIn: false,
-  loading: true,
+  isLoading: false,
+  error: '',
 }

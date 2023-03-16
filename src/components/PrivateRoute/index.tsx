@@ -1,23 +1,26 @@
 import { ReactNode, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { useFirebaseAuth } from '@/hooks/useFirebaseAuth'
 import Loading from '@/components/Loading'
+import useStrapiAuth from '@/hooks/useStrapiAuth'
+import { useRouter } from 'next/router'
+import { getToken } from '@/helpers/token'
+import useExercise from '@/hooks/useExercise'
 
 type PrivateRouteProps = {
   children: ReactNode
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
-  const { user } = useFirebaseAuth()
   const router = useRouter()
+  const token = getToken()
+  const { loggedIn, isLoading } = useStrapiAuth()
 
   useEffect(() => {
-    if (!user.loading && !user.loggedIn) {
+    if (!token) {
       router.push('/login')
     }
-  }, [user])
+  }, [token])
 
-  if (user.loading || !user.loggedIn) {
+  if (!loggedIn && isLoading) {
     return (
       <div className="p-6">
         <Loading />

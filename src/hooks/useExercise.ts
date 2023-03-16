@@ -10,7 +10,7 @@ const useExercise = () => {
     if (exercises.data.length === 0 && !exercises.error && !exercises.loading) {
       dispatch(fetchExercises())
     }
-  }, [dispatch, exercises])
+  }, [])
 
   return exercises
 }
